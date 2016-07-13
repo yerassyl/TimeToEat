@@ -11,14 +11,37 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    // Backendless setup
+    let APP_ID = "C8ECC9B0-E777-2652-FF42-ABA435B01E00"
+    let SECRET_KEY = "FA640681-92BB-7B08-FFD6-C4E0F2A65600"
+    let VERSION_NUM = "v1"
+ 
+    
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        Backendless.sharedInstance().initApp(APP_ID, secret:SECRET_KEY, version:VERSION_NUM)
+        // If you plan to use Backendless Media Service, uncomment the following line (iOS ONLY!)
+        // backendless.mediaService = MediaService()
+
+        // set launch screen
+        let rootViewController = MainViewController()
+        
+        let navigationController = UINavigationController(rootViewController: rootViewController)
+        navigationController.viewControllers = [rootViewController]
+        
+        navigationController.navigationBar.barTintColor = UIColor.primaryRedColor()
+        navigationController.navigationBar.barStyle = UIBarStyle.Black
+        //navigationController.navigationBar.tintColor = UIColor.whiteColor()
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+
         return true
     }
 
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
