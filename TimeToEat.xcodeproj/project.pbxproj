@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		45F2738889C8C43F68326ED9 /* Pods_TimeToEat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB90BA5096B96CE4E320DCD /* Pods_TimeToEat.framework */; };
+		CE108E3A1D390FFB009F62C8 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE108E391D390FFB009F62C8 /* ActivityIndicator.swift */; };
+		CE108E3C1D391A4C009F62C8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE108E3B1D391A4C009F62C8 /* Location.swift */; };
 		CE22DA841D34B72300E44E15 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE22DA831D34B72300E44E15 /* MapViewController.swift */; };
 		CE5F39831D2E5AD1004E1A50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F39821D2E5AD1004E1A50 /* AppDelegate.swift */; };
 		CE5F398A1D2E5AD1004E1A50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5F39891D2E5AD1004E1A50 /* Assets.xcassets */; };
@@ -27,6 +29,8 @@
 		124572F240B2D690472B0540 /* Pods-TimeToEat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeToEat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TimeToEat/Pods-TimeToEat.debug.xcconfig"; sourceTree = "<group>"; };
 		81F96A18AC138C71CB374D65 /* Pods-TimeToEat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeToEat.release.xcconfig"; path = "Pods/Target Support Files/Pods-TimeToEat/Pods-TimeToEat.release.xcconfig"; sourceTree = "<group>"; };
 		8AB90BA5096B96CE4E320DCD /* Pods_TimeToEat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeToEat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE108E391D390FFB009F62C8 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		CE108E3B1D391A4C009F62C8 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CE22DA831D34B72300E44E15 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		CE5F397F1D2E5AD1004E1A50 /* TimeToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeToEat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE5F39821D2E5AD1004E1A50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				CE5F39A01D2E87B2004E1A50 /* Place.swift */,
+				CE108E3B1D391A4C009F62C8 /* Location.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -159,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */,
+				CE108E391D390FFB009F62C8 /* ActivityIndicator.swift */,
 			);
 			name = ReuseViews;
 			sourceTree = "<group>";
@@ -290,10 +296,12 @@
 				CE5F39831D2E5AD1004E1A50 /* AppDelegate.swift in Sources */,
 				CED81A111D3656DD0037CA59 /* MainView.swift in Sources */,
 				CED81A0E1D363F1E0037CA59 /* SearchViewController.swift in Sources */,
+				CE108E3A1D390FFB009F62C8 /* ActivityIndicator.swift in Sources */,
 				CE22DA841D34B72300E44E15 /* MapViewController.swift in Sources */,
 				CE5F399F1D2E6011004E1A50 /* Colors.swift in Sources */,
 				CE5F39961D2E5B18004E1A50 /* MainViewController.swift in Sources */,
 				CE5F39A11D2E87B2004E1A50 /* Place.swift in Sources */,
+				CE108E3C1D391A4C009F62C8 /* Location.swift in Sources */,
 				CE5F39A31D2E88A5004E1A50 /* PlaceTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

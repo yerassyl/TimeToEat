@@ -24,6 +24,8 @@ class PlaceTableViewCell: UITableViewCell {
     var workingHoursLabel: UILabel!
     var clockIcon: UIImageView!
     
+    var cellHeight = 0.0
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -60,6 +62,10 @@ class PlaceTableViewCell: UITableViewCell {
         businessLunchPriceLabel.textColor = UIColor.primaryDarkerRedColor()
         contentView.addSubview(businessLunchPriceLabel)
         
+        let cellBottomLine = UIView(frame: CGRect(x: 0.0, y: self.cellHeight, width: Double(screenWidth), height: 1.0) )
+        cellBottomLine.backgroundColor = UIColor.primaryRedColor()
+        contentView.addSubview(cellBottomLine)
+        
         updateConstraints()
     }
     
@@ -76,7 +82,7 @@ class PlaceTableViewCell: UITableViewCell {
         }
         
         distanceToLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.contentView).offset(27)
+            make.left.equalTo(self.contentView).offset(17)
             make.top.equalTo(nameLabel.snp_bottom).offset(1)
         }
         
@@ -87,8 +93,9 @@ class PlaceTableViewCell: UITableViewCell {
         
         businessLunchPriceLabel.snp_makeConstraints { (make) in
             make.left.equalTo(self.contentView).offset(19)
-            make.top.equalTo(businessLunchLabel.snp_bottom).offset(1)
+            make.top.equalTo(businessLunchLabel.snp_bottom).offset(-6)
         }
+
         
     }
     

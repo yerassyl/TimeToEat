@@ -10,7 +10,6 @@ import Foundation
 import MapboxDirections
 import CoreLocation
 
-var placesTableView: UITableView!
 
 class Place: NSObject {
     
@@ -20,6 +19,7 @@ class Place: NSObject {
     var phone = ""
     var workingHours: String?
     var lunchPrice = 0
+    var lunchType: String?
     var cousine: String?
     var features: String?
     var choices: String?
@@ -39,13 +39,15 @@ class Place: NSObject {
 var backendless = Backendless.sharedInstance()
 let directions = Directions.sharedDirections
 
-class PlacesLogic: NSObject {
+class PlacesLogic: NSObject  {
     
+    // store list of loaded places
     var places = [Place]()
-    // get current location
+    // store list of distances to loaded places, index in "distances" corresponds to place at index in "places"
+    var distances = [String]()
     
     // Load Places for the launch screen
-    func loadInitialPlaces() {
+    func loadInitialPlaces(completion: (Void) -> Void ) {
         let dataStore = backendless.data.of(Place.ofClass())
         let whereClause = "lunchPrice > 0" // just for now
         let dataQuery = BackendlessDataQuery()
@@ -58,16 +60,32 @@ class PlacesLogic: NSObject {
                     self.places.append(place)
                 }
             }
-            placesTableView.reloadData()
+            completion()
         }) { (error: Fault!) in
             print("loadInitialPlaces error: \(error)" )
         }
         
     }
     
+    // calculate distances to loaded places
+    func calculateDistances(currentLocation: CLLocation, completion: (Void)->Void) {
+        var i = 1
+        for place in self.places {
+            self.getDistanceToPlace(currentLocation, placeLat: place.lat, placeLon: place.lon ) {
+                // to do: what if couldn't calculate distance to
+                distance in
+                self.distances.append(distance)
+                if i == self.places.count {
+                    completion()
+                    return
+                }
+                i += 1
+            }
+        }
+    }
     
     // calculate distance betwee two points
-    static func getDistanceToPlace(currentLocation: CLLocation, placeLat: CLLocationDegrees, placeLon: CLLocationDegrees, completion: (distance: String) -> Void) {
+    func getDistanceToPlace(currentLocation: CLLocation, placeLat: CLLocationDegrees, placeLon: CLLocationDegrees, completion: (distance: String) -> Void) {
         var distance = "NA"
         //print("location \(getCurrentLocation() )")
         let waypoints = [
@@ -82,21 +100,22 @@ class PlacesLogic: NSObject {
         
         directions.calculateDirections(options: options) { (waypoints, routes, error) in
             guard error == nil else {
-                print("Error calculating directions: \(error!)")
+                //print("Error calculating directions: \(error!)")
+                print("Error calculating directions")
                 return
             }
             
             if let route = routes?.first {
                 if route.distance > 1000 {
-                    distance = "\( round(route.distance/100)/10)km"
+                    distance = "📍\( round(route.distance/100)/10) км до вас"
                 }else {
-                    distance = "\(Int(route.distance))m"
+                    distance = "📍\(Int(route.distance)) м до вас"
                 }
                 completion(distance: distance)
             }
         }
     
     }
-    
+
     
 }

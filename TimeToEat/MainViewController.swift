@@ -11,47 +11,49 @@ import SnapKit
 import Kingfisher
 
 
+var screenWidth: CGFloat!
+var screenHeight: CGFloat!
 
 
-class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
+class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LocationProtocol {
 
     
     var placesModelLogic = PlacesLogic()
-    
-    var locationManager: CLLocationManager!
+    var placesTableView: UITableView!
     var currentLocation = CLLocation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
+        screenWidth = UIScreen.mainScreen().bounds.width
+        screenHeight = UIScreen.mainScreen().bounds.height
+        
         
         placesTableView = UITableView()
         placesTableView.delegate = self
         placesTableView.dataSource = self
+        placesTableView.separatorStyle = .None
+        placesTableView.registerClass(PlaceTableViewCell.self, forCellReuseIdentifier: "place")
         setup()
-        placesModelLogic.loadInitialPlaces()
         
-        // get users current location
-        if (CLLocationManager.locationServicesEnabled()) {
-            locationManager = CLLocationManager()
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.requestLocation()
+        self.displayNavBarActivity()
+        placesModelLogic.loadInitialPlaces() {
+            self.dismissNavBarActivity()
+            self.placesTableView.reloadData()
+            let LocationMgr = Location.SharedManager
+            LocationMgr.delegate = self
         }
-        
+
     }
     
-    // MARK: - CLLocationManagerDelegate
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            print(location)
-            self.currentLocation = location
+    // MARK: - LocationProtocol
+    func locationDidUpdateToLocation(location: CLLocation) {
+        currentLocation = location
+        // should run only once initially
+        self.placesModelLogic.calculateDistances(self.currentLocation) {
+            self.placesTableView.reloadData()
         }
-    }
-    
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print(error)
+        print("didUpdateToColation")
     }
     
     // MARK: - Table View
@@ -60,7 +62,8 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = PlaceTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "place")
+        let cell = tableView.dequeueReusableCellWithIdentifier("place", forIndexPath: indexPath) as! PlaceTableViewCell
+        
         let currentPlace = placesModelLogic.places[indexPath.row]
         
         if currentPlace.placeImage != nil {
@@ -68,34 +71,35 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         cell.nameLabel.text = currentPlace.name
-        // lucnhPrice is nil, but it is set in Backendless
-        cell.businessLunchPriceLabel.text = "\(currentPlace.lunchPrice)"
+        cell.businessLunchLabel.text = currentPlace.lunchType
+        cell.businessLunchPriceLabel.text = "\(currentPlace.lunchPrice) ₸"
         
         // calculate distance
-        PlacesLogic.getDistanceToPlace(currentLocation, placeLat: currentPlace.lat, placeLon: currentPlace.lon ) {
-            distance in
-            cell.distanceToLabel.text = distance
-            // to do: what if couldn't calculate distance to
+        if placesModelLogic.distances.count > indexPath.row {
+            cell.distanceToLabel.text = placesModelLogic.distances[indexPath.row]
         }
-
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
+        // add bottom border
+        cell.cellHeight = 134.0
+    
         return cell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         // calculate cell width
         //let cellWidth = tableView.frame.height/5
-        return 136
+        return 134
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedPlace = placesModelLogic.places[indexPath.row]
         let placeVC = PlaceViewController()
-        
         placeVC.place = selectedPlace
-        self.navigationController?.pushViewController(placeVC, animated: true)
         
+        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as! PlaceTableViewCell
+        placeVC.distance = selectedCell.distanceToLabel.text!
+        self.navigationController?.pushViewController(placeVC, animated: true)
     }
     
     // MARK: - UI
@@ -106,20 +110,25 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func setup() {
+        // set navigation bar title
+
+        self.navigationItem.title = "Время Есть"
+        self.navigationItem.titleView?.tintColor = UIColor.whiteColor()
+        
         // setup UINavBar items
         let mapItem = UIBarButtonItem(image: UIImage(named: "map-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.openMapView) )
         let searchItem = UIBarButtonItem(image: UIImage(named: "search-icon"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         mapItem.tintColor = UIColor.whiteColor()
         searchItem.tintColor = UIColor.whiteColor()
-        self.navigationItem.rightBarButtonItems = [mapItem, searchItem]
+        //self.navigationItem.rightBarButtonItems = [mapItem, searchItem]
         
-        let searchBarButton = UIButton()
-        searchBarButton.titleLabel?.font = UIFont.getMainFont(14)
-        searchBarButton.titleLabel?.textAlignment = .Left
-        searchBarButton.setTitle("Голоден", forState: UIControlState.Normal)
-        //searchBarButton.titleLabel?.sizeToFit()
-        
-        self.navigationItem.titleView = searchBarButton
+        // set back button which sends to this controler
+        let backButton = UIBarButtonItem()
+        //backButton.setBackButtonBackgroundImage(UIImage(named: "back"), forState: UIControlState.Normal, barMetrics: UIBarMetrics.Default)
+        backButton.title = "Назад"
+        backButton.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationItem.backBarButtonItem = backButton
         
         // table view
         placesTableView.separatorColor = UIColor.primaryRedColor()
@@ -129,7 +138,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             make.edges.equalTo(self.view)
         }
         
-    }
+    }// END SETUP
     
 
 }
