@@ -27,7 +27,8 @@ class Place: NSObject {
     var lat = 0.0
     var lon = 0.0
     
-    var distanceTo: String? // virtual attribute, do not use value retrieved from backendless
+    var distanceToDouble = 0.0
+    var distanceToStr: String? // virtual attribute, do not use value retrieved from backendless
     
     func getFirstPhone() -> String {
         let phones = self.phone.characters.split(",").map{String($0)}
@@ -77,9 +78,10 @@ class PlacesLogic: NSObject  {
         for place in self.places {
             self.getDistanceToPlace(currentLocation, place: place) {
                 // to do: what if couldn't calculate distance to
-                distance in
+                distance, distanceDouble in
                 print("\(i) \(place.name) " )
-                place.distanceTo = distance
+                place.distanceToStr = distance
+                place.distanceToDouble = distanceDouble
                 if i == self.places.count - 1 {
                     completion()
                     return
@@ -90,7 +92,7 @@ class PlacesLogic: NSObject  {
     }
     
     // calculate distance betwee two points
-    func getDistanceToPlace(currentLocation: CLLocation, place: Place,  completion: (distance: String) -> Void) {
+    func getDistanceToPlace(currentLocation: CLLocation, place: Place,  completion: (distance: String, distanceDouble: Double) -> Void) {
         var distance = "NA"
         //print("location \(getCurrentLocation() )")
         let waypoints = [
@@ -109,14 +111,14 @@ class PlacesLogic: NSObject  {
                 print("Error calculating directions")
                 return
             }
-            
+
             if let route = routes?.first {
                 if route.distance > 1000 {
                     distance = "📍\( round(route.distance/100)/10) км до вас"
                 }else {
                     distance = "📍\(Int(route.distance)) м до вас"
                 }
-                completion(distance: distance)
+                completion(distance: distance, distanceDouble: Double(route.distance))
             }
         }
     

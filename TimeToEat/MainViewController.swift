@@ -51,6 +51,9 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         currentLocation = location
         // should run only once initially
         self.placesModelLogic.calculateDistances(self.currentLocation) {
+            self.placesModelLogic.places.sortInPlace({ (s1: Place, s2: Place) -> Bool in
+                return s1.distanceToDouble < s2.distanceToDouble
+            })
             self.placesTableView.reloadData()
         }
         print("didUpdateToColation")
@@ -74,8 +77,8 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.businessLunchLabel.text = currentPlace.lunchType
         cell.businessLunchPriceLabel.text = "\(currentPlace.lunchPrice) ₸"
         
-        if currentPlace.distanceTo != nil {
-            cell.distanceToLabel.text = currentPlace.distanceTo
+        if currentPlace.distanceToStr != nil {
+            cell.distanceToLabel.text = currentPlace.distanceToStr
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
@@ -111,7 +114,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func setup() {
         // set navigation bar title
 
-        self.navigationItem.title = "Время Есть"
+        self.navigationItem.title = "ВРЕМЯ ЕСТЬ"
         self.navigationItem.titleView?.tintColor = UIColor.whiteColor()
         
         // setup UINavBar items
