@@ -27,8 +27,13 @@ class Place: NSObject {
     var lat = 0.0
     var lon = 0.0
     
+    var distanceTo: String? // virtual attribute, do not use value retrieved from backendless
+    
     func getFirstPhone() -> String {
         let phones = self.phone.characters.split(",").map{String($0)}
+        if phones.count == 0 {
+            return "NA"
+        }
         return phones[0]
     }
     
@@ -44,7 +49,6 @@ class PlacesLogic: NSObject  {
     // store list of loaded places
     var places = [Place]()
     // store list of distances to loaded places, index in "distances" corresponds to place at index in "places"
-    var distances = [String]()
     
     // Load Places for the launch screen
     func loadInitialPlaces(completion: (Void) -> Void ) {
@@ -69,13 +73,14 @@ class PlacesLogic: NSObject  {
     
     // calculate distances to loaded places
     func calculateDistances(currentLocation: CLLocation, completion: (Void)->Void) {
-        var i = 1
+        var i = 0
         for place in self.places {
-            self.getDistanceToPlace(currentLocation, placeLat: place.lat, placeLon: place.lon ) {
+            self.getDistanceToPlace(currentLocation, place: place) {
                 // to do: what if couldn't calculate distance to
                 distance in
-                self.distances.append(distance)
-                if i == self.places.count {
+                print("\(i) \(place.name) " )
+                place.distanceTo = distance
+                if i == self.places.count - 1 {
                     completion()
                     return
                 }
@@ -85,7 +90,7 @@ class PlacesLogic: NSObject  {
     }
     
     // calculate distance betwee two points
-    func getDistanceToPlace(currentLocation: CLLocation, placeLat: CLLocationDegrees, placeLon: CLLocationDegrees, completion: (distance: String) -> Void) {
+    func getDistanceToPlace(currentLocation: CLLocation, place: Place,  completion: (distance: String) -> Void) {
         var distance = "NA"
         //print("location \(getCurrentLocation() )")
         let waypoints = [
@@ -93,7 +98,7 @@ class PlacesLogic: NSObject  {
                 coordinate: CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude),
                 name: "My Location"),
             Waypoint(
-                coordinate: CLLocationCoordinate2D(latitude: placeLat, longitude: placeLon),
+                coordinate: CLLocationCoordinate2D(latitude: place.lat, longitude: place.lon),
                 name: "Place To Find"),
             ]
         let options = RouteOptions( waypoints: waypoints, profileIdentifier: MBDirectionsProfileIdentifierCycling)

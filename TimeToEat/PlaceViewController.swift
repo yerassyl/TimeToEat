@@ -54,15 +54,13 @@ class PlaceViewController: UIViewController, CLLocationManagerDelegate {
         //let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         //map.setCenterCoordinate(center,zoomLevel: map.zoomLevel,  animated: true)
         
-        if !gotCurrentLocation {
-            let lat = self.place.lat
-            let lon = self.place.lon
-            placeModelLogic.getDistanceToPlace(currentLocation, placeLat: lat, placeLon: lon ) {
-                distance in
-                    self.updateDistanceLabel(distance)
-            }
-            gotCurrentLocation = true
-        }
+//        if !gotCurrentLocation {
+//            placeModelLogic.getDistanceToPlace(currentLocation, place: place ) {
+//                distance in
+//                    self.updateDistanceLabel(distance)
+//            }
+//            gotCurrentLocation = true
+//        }
         
     }
     
@@ -149,7 +147,7 @@ class PlaceViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         let priceLabel = UILabel()
-        priceLabel.text = "\(self.place.lunchPrice)₸"
+        priceLabel.text = "\(self.place.lunchPrice) ₸"
         priceLabel.font = UIFont.getMainFont(48)
         priceLabel.textColor = UIColor.primaryDarkerRedColor()
         self.view.addSubview(priceLabel)
@@ -182,6 +180,9 @@ class PlaceViewController: UIViewController, CLLocationManagerDelegate {
         }
  */
         
+        guard self.place.getFirstPhone() != "NA" else {
+            return
+        }
         let callUsButton = UIButton()
         callUsButton.setTitle("Позвонить", forState: UIControlState.Normal)
         callUsButton.titleLabel?.font = UIFont.getMainFont(18)

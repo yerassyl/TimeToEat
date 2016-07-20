@@ -39,6 +39,7 @@ class Location: NSObject, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             currentLocation = location
+            print("got location")
             //let userInfo : NSDictionary = ["location" : currentLocation!]
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 self.delegate.locationDidUpdateToLocation(self.currentLocation!)

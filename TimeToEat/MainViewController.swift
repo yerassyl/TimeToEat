@@ -74,9 +74,8 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.businessLunchLabel.text = currentPlace.lunchType
         cell.businessLunchPriceLabel.text = "\(currentPlace.lunchPrice) ₸"
         
-        // calculate distance
-        if placesModelLogic.distances.count > indexPath.row {
-            cell.distanceToLabel.text = placesModelLogic.distances[indexPath.row]
+        if currentPlace.distanceTo != nil {
+            cell.distanceToLabel.text = currentPlace.distanceTo
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
@@ -138,7 +137,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             make.edges.equalTo(self.view)
         }
         
-    }// END SETUP
+    } // END SETUP
     
 
 }
