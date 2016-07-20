@@ -50,6 +50,7 @@ class PlaceViewController: UIViewController, CLLocationManagerDelegate {
         let location = locations.last! as CLLocation
         currentLocation = location
         
+        
         // do not set center to current position
         //let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         //map.setCenterCoordinate(center,zoomLevel: map.zoomLevel,  animated: true)
@@ -75,7 +76,7 @@ class PlaceViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func setup() {
-        self.navigationItem.title = "Время Есть"
+        self.navigationItem.title = "ВРЕМЯ ЕСТЬ"
         self.navigationItem.titleView?.tintColor = UIColor.whiteColor()
 
         let navbarHeight = self.navigationController?.navigationBar.frame.height
