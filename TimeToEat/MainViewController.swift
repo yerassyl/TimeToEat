@@ -14,11 +14,10 @@ import Kingfisher
 var screenWidth: CGFloat!
 var screenHeight: CGFloat!
 
-
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LocationProtocol {
+    // get singleton model class to work with logic
+    let placesModelLogic = PlacesLogic.PlacesLogicSingleton
 
-    
-    var placesModelLogic = PlacesLogic()
     var placesTableView: UITableView!
     var currentLocation = CLLocation()
     
@@ -27,7 +26,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.view.backgroundColor = UIColor.whiteColor()
         screenWidth = UIScreen.mainScreen().bounds.width
         screenHeight = UIScreen.mainScreen().bounds.height
-        
         
         placesTableView = UITableView()
         placesTableView.delegate = self
@@ -56,18 +54,17 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             })
             self.placesTableView.reloadData()
         }
-        print("didUpdateToColation")
     }
     
     // MARK: - Table View
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return placesModelLogic.places.count
+        return self.placesModelLogic.places.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("place", forIndexPath: indexPath) as! PlaceTableViewCell
         
-        let currentPlace = placesModelLogic.places[indexPath.row]
+        let currentPlace = self.placesModelLogic.places[indexPath.row]
         
         if currentPlace.placeImage != nil {
             cell.placeImageView?.kf_setImageWithURL(NSURL(string: currentPlace.placeImage!)!, placeholderImage: UIImage(named:"placeholder") )
@@ -95,13 +92,20 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedPlace = placesModelLogic.places[indexPath.row]
-        let placeVC = PlaceViewController()
-        placeVC.place = selectedPlace
+        let selectedPlace = self.placesModelLogic.places[indexPath.row]
         
-        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as! PlaceTableViewCell
-        placeVC.distance = selectedCell.distanceToLabel.text!
-        self.navigationController?.pushViewController(placeVC, animated: true)
+        // Bete Functionality
+//        let placeVC = PlaceViewController()
+//        placeVC.place = selectedPlace
+//        
+//        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as! PlaceTableViewCell
+//        placeVC.distance = selectedCell.distanceToLabel.text!
+//        self.navigationController?.pushViewController(placeVC, animated: true)
+// 
+        
+        let mapVC = MapViewController()
+        mapVC.mapSelectedPlace = selectedPlace
+        self.navigationController?.pushViewController(mapVC, animated: true)
     }
     
     // MARK: - UI
@@ -113,8 +117,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func setup() {
         // set navigation bar title
-
-        self.navigationItem.title = "ВРЕМЯ ЕСТЬ"
+        self.navigationItem.titleView = UIImageView(image: UIImage(named: "logo_block"))
         self.navigationItem.titleView?.tintColor = UIColor.whiteColor()
         
         // setup UINavBar items
@@ -122,7 +125,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let searchItem = UIBarButtonItem(image: UIImage(named: "search-icon"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         mapItem.tintColor = UIColor.whiteColor()
         searchItem.tintColor = UIColor.whiteColor()
-        //self.navigationItem.rightBarButtonItems = [mapItem, searchItem]
+        self.navigationItem.rightBarButtonItems = [mapItem, searchItem]
         
         // set back button which sends to this controler
         let backButton = UIBarButtonItem()

@@ -27,8 +27,10 @@ class Place: NSObject {
     var lat = 0.0
     var lon = 0.0
     
+    // virtual attributes, do not use value retrieved from backendless
     var distanceToDouble = 0.0
-    var distanceToStr: String? // virtual attribute, do not use value retrieved from backendless
+    var distanceToStr: String?
+    
     
     func getFirstPhone() -> String {
         let phones = self.phone.characters.split(",").map{String($0)}
@@ -38,6 +40,16 @@ class Place: NSObject {
         return phones[0]
     }
     
+    func call() {
+        let phone = self.getFirstPhone()
+        if phone != "NA" {
+            if let url = NSURL(string: "tel://\(phone)") {
+                UIApplication.sharedApplication().openURL(url)
+            }
+        }
+    }
+    
+    
 }
 
 
@@ -46,10 +58,10 @@ var backendless = Backendless.sharedInstance()
 let directions = Directions.sharedDirections
 
 class PlacesLogic: NSObject  {
+    static let PlacesLogicSingleton = PlacesLogic()
     
     // store list of loaded places
     var places = [Place]()
-    // store list of distances to loaded places, index in "distances" corresponds to place at index in "places"
     
     // Load Places for the launch screen
     func loadInitialPlaces(completion: (Void) -> Void ) {
@@ -79,7 +91,6 @@ class PlacesLogic: NSObject  {
             self.getDistanceToPlace(currentLocation, place: place) {
                 // to do: what if couldn't calculate distance to
                 distance, distanceDouble in
-                print("\(i) \(place.name) " )
                 place.distanceToStr = distance
                 place.distanceToDouble = distanceDouble
                 if i == self.places.count - 1 {

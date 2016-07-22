@@ -10,63 +10,37 @@ import UIKit
 import Mapbox
 import AlamofireObjectMapper
 
-class PlaceViewController: UIViewController, CLLocationManagerDelegate {
-    
-    var placeModelLogic = PlacesLogic()
+class PlaceViewController: UIViewController, LocationProtocol {
     
     var place: Place!
     var distanceLabel: UILabel!
     var distance = "NA"
     
     var map: MGLMapView!
-    var locationManager: CLLocationManager!
     var currentLocation = CLLocation()
-    var gotCurrentLocation = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
         setup()
-        if (CLLocationManager.locationServicesEnabled()) {
-            locationManager = CLLocationManager()
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
-        }
         
+        let LocationMgr = Location.SharedManager
+        LocationMgr.delegate = self
+        LocationMgr.startUpdatingLocation()
+        print("show place")
     }
     
     // MARK: - Actions
-    
-    func call(){
+    func call() {
         let phone = self.place.getFirstPhone()
         if let url = NSURL(string: "tel://\(phone)") {
             UIApplication.sharedApplication().openURL(url)
         }
     }
     
-    // MARK: - CLLocationManagerDelegate
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations.last! as CLLocation
-        currentLocation = location
-        
-        
-        // do not set center to current position
-        //let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        //map.setCenterCoordinate(center,zoomLevel: map.zoomLevel,  animated: true)
-        
-//        if !gotCurrentLocation {
-//            placeModelLogic.getDistanceToPlace(currentLocation, place: place ) {
-//                distance in
-//                    self.updateDistanceLabel(distance)
-//            }
-//            gotCurrentLocation = true
-//        }
-        
-    }
-    
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print(error)
+    // MARK: - Location Protocol
+    func locationDidUpdateToLocation(location: CLLocation) {
+        self.currentLocation = location
     }
     
     // MARK: - UI Updates
@@ -87,8 +61,8 @@ class PlaceViewController: UIViewController, CLLocationManagerDelegate {
         map.zoomEnabled = false
         map.scrollEnabled = true
         map.rotateEnabled = true
-        //map.userTrackingMode = .Follow // do not follow
-        //map.showsUserLocation = true
+        map.userTrackingMode = .None // do not follow
+        map.showsUserLocation = true
         
         map.setCenterCoordinate(CLLocationCoordinate2D(latitude: self.place.lat,longitude: self.place.lon ), zoomLevel: 15.0, animated: false)
         self.view.addSubview(map)

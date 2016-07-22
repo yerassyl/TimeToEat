@@ -16,6 +16,7 @@ protocol LocationProtocol {
 
 //let kLocationDidChangeNotification = "LocationDidChangeNotification"
 
+
 class Location: NSObject, CLLocationManagerDelegate {
     
     static let SharedManager = Location()
@@ -30,6 +31,7 @@ class Location: NSObject, CLLocationManagerDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.distanceFilter = kCLLocationAccuracyHundredMeters
             locationManager.requestWhenInUseAuthorization()
+            locationManager.requestLocation()
         }
         
     }
@@ -39,7 +41,6 @@ class Location: NSObject, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             currentLocation = location
-            print("got location")
             //let userInfo : NSDictionary = ["location" : currentLocation!]
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 self.delegate.locationDidUpdateToLocation(self.currentLocation!)
@@ -55,8 +56,13 @@ class Location: NSObject, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.AuthorizedWhenInUse {
             locationManager.requestLocation()
-            print("requestLocation")
         }
+    }
+    
+    // MARK: - LocationProtocol
+    func startUpdatingLocation(){
+        print("startUpdatingLocation")
+        locationManager.startUpdatingLocation()
     }
     
     
