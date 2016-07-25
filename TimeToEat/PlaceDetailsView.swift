@@ -13,7 +13,6 @@ class PlaceDetailsView: UIView {
     
     // dynamic labels
     var distanceLabel: UILabel!
-    var distance = "NA"
     
     // array of mode Y-coordinates (except invisible mode) in CGFloat type
     var modes = [DetailsViewMode.FullScreen,
@@ -36,8 +35,12 @@ class PlaceDetailsView: UIView {
     // set the position of details view to one of the modes animated
     func setDetailsViewPosition(mode: DetailsViewMode) {
         self.currentDetailsViewMode = mode
+        var topMargin = screenHeight*mode.rawValue
+        if mode == DetailsViewMode.FullScreen {
+            topMargin = navbarHeight
+        }
         UIView.animateWithDuration(0.25, animations: {
-            self.frame = CGRectMake(0, screenHeight*mode.rawValue, screenWidth, screenHeight)
+            self.frame = CGRectMake(0, topMargin, screenWidth, screenHeight)
         }) { (value: Bool) in
             //
         }

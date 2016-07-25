@@ -13,6 +13,7 @@ import Kingfisher
 
 var screenWidth: CGFloat!
 var screenHeight: CGFloat!
+var navbarHeight: CGFloat! // actually navbar height + statusbar height
 
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LocationProtocol {
     // get singleton model class to work with logic
@@ -26,6 +27,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.view.backgroundColor = UIColor.whiteColor()
         screenWidth = UIScreen.mainScreen().bounds.width
         screenHeight = UIScreen.mainScreen().bounds.height
+        navbarHeight = self.navigationController!.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.size.height
         
         placesTableView = UITableView()
         placesTableView.delegate = self
@@ -74,9 +76,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.businessLunchLabel.text = currentPlace.lunchType
         cell.businessLunchPriceLabel.text = "\(currentPlace.lunchPrice) ₸"
         
-        if currentPlace.distanceToStr != nil {
-            cell.distanceToLabel.text = currentPlace.distanceToStr
-        }
+        cell.distanceToLabel.text = currentPlace.distanceToStr
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         // add bottom border

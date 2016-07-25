@@ -10,6 +10,9 @@ import Foundation
 import MapboxDirections
 import CoreLocation
 
+protocol PlaceProtocol {
+    func updateDistanceLabel()
+}
 
 class Place: NSObject {
     
@@ -29,8 +32,7 @@ class Place: NSObject {
     
     // virtual attributes, do not use value retrieved from backendless
     var distanceToDouble = 0.0
-    var distanceToStr: String?
-    
+    var distanceToStr = "Загрузка..."
     
     func getFirstPhone() -> String {
         let phones = self.phone.characters.split(",").map{String($0)}
@@ -51,6 +53,7 @@ class Place: NSObject {
     
     
 }
+
 
 
 // Logic for Places

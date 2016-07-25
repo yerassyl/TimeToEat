@@ -8,8 +8,11 @@
 
 import Foundation
 
+// Each case represents one mode of detail view 
+// CGFloat number represents margin percentage from top 
+
 enum DetailsViewMode: CGFloat {
-    case FullScreen = 0.0
+    case FullScreen = 0.0  // also add up navbar and status bar height to the top margin
     case HalfScreen = 0.6
     case SemiHide = 0.8
     case Hide = 1.0       // when details view is not shown but litle icon is shown to indicate that it is there

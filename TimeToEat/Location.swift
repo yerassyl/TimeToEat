@@ -59,7 +59,6 @@ class Location: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    // MARK: - LocationProtocol
     func startUpdatingLocation(){
         print("startUpdatingLocation")
         locationManager.startUpdatingLocation()
