@@ -16,6 +16,7 @@ protocol PlaceProtocol {
 
 class Place: NSObject {
     
+    var objectId: String?
     var placeImage: String?
     var name: String?
     var adress: String?
@@ -66,6 +67,8 @@ class PlacesLogic: NSObject  {
     // store list of loaded places
     var places = [Place]()
     
+    // MARK: - Backendless 
+    
     // Load Places for the launch screen
     func loadInitialPlaces(completion: (Void) -> Void ) {
         let dataStore = backendless.data.of(Place.ofClass())
@@ -87,6 +90,39 @@ class PlacesLogic: NSObject  {
         
     }
     
+    func searchPlaces(name: String = "", priceFrom: Int = 0, priceTo: Int = 9999, distanceFrom: Double = 0.0, distanceTo: Double = 0.0, completion: (Void) -> Void ) {
+        
+        self.places.removeAll()
+        let dataStore = backendless.data.of(Place.ofClass())
+        let whereClause = "name LIKE '%\(name)%' and lunchPrice >= \(priceFrom) and lunchPrice <= \(priceTo)"
+        let dataQuery = BackendlessDataQuery()
+        dataQuery.whereClause = whereClause
+        
+        dataStore.find(dataQuery, response: { (result: BackendlessCollection!) in
+            let placesResult = result.getCurrentPage()
+            for obj in placesResult {
+                if let place = obj as? Place {
+                    self.places.append(place)
+                    print(place.lunchPrice)
+                }
+            }
+            
+            completion()
+        }) { (error: Fault!) in
+            print("loadInitialPlaces error: \(error)" )
+        }
+    }
+    
+    // MARK: - Places 
+    
+    func filterToDistance(distanceFrom: Double, distanceTo: Double) {
+        self.places = self.places.filter { (place: Place) -> Bool in
+            return place.distanceToDouble >= distanceFrom && place.distanceToDouble <= distanceTo
+        }
+    }
+    
+    // MARK: - Mapbox Directions API
+    
     // calculate distances to loaded places
     func calculateDistances(currentLocation: CLLocation, completion: (Void)->Void) {
         var i = 0
@@ -105,7 +141,7 @@ class PlacesLogic: NSObject  {
         }
     }
     
-    // calculate distance betwee two points
+    // calculate distance between two points
     func getDistanceToPlace(currentLocation: CLLocation, place: Place,  completion: (distance: String, distanceDouble: Double) -> Void) {
         var distance = "NA"
         //print("location \(getCurrentLocation() )")

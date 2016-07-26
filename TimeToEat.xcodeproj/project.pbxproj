@@ -11,6 +11,7 @@
 		CE0D34701D40859100EC34B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0D346F1D40859100EC34B6 /* LaunchScreen.storyboard */; };
 		CE0D34741D40C27D00EC34B6 /* PlaceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D34731D40C27D00EC34B6 /* PlaceDetailsView.swift */; };
 		CE0D34761D40EEBB00EC34B6 /* DetailsViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D34751D40EEBB00EC34B6 /* DetailsViewMode.swift */; };
+		CE0D34781D45F0E200EC34B6 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D34771D45F0E200EC34B6 /* SearchView.swift */; };
 		CE108E3A1D390FFB009F62C8 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE108E391D390FFB009F62C8 /* ActivityIndicator.swift */; };
 		CE108E3C1D391A4C009F62C8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE108E3B1D391A4C009F62C8 /* Location.swift */; };
 		CE22DA841D34B72300E44E15 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE22DA831D34B72300E44E15 /* MapViewController.swift */; };
@@ -20,8 +21,8 @@
 		CE5F399F1D2E6011004E1A50 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F399E1D2E6011004E1A50 /* Colors.swift */; };
 		CE5F39A11D2E87B2004E1A50 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F39A01D2E87B2004E1A50 /* Place.swift */; };
 		CE5F39A31D2E88A5004E1A50 /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */; };
+		CE7C17541D47415A00AD5EFB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7C17531D47415A00AD5EFB /* SearchViewController.swift */; };
 		CED81A081D35F5060037CA59 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED81A071D35F5060037CA59 /* CoreLocation.framework */; };
-		CED81A0E1D363F1E0037CA59 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED81A0D1D363F1E0037CA59 /* SearchViewController.swift */; };
 		CEF1D5151D34EEEF00A4BFFD /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		CE0D346F1D40859100EC34B6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE0D34731D40C27D00EC34B6 /* PlaceDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDetailsView.swift; sourceTree = "<group>"; };
 		CE0D34751D40EEBB00EC34B6 /* DetailsViewMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewMode.swift; sourceTree = "<group>"; };
+		CE0D34771D45F0E200EC34B6 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		CE108E391D390FFB009F62C8 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		CE108E3B1D391A4C009F62C8 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CE22DA831D34B72300E44E15 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -43,8 +45,8 @@
 		CE5F399E1D2E6011004E1A50 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		CE5F39A01D2E87B2004E1A50 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
+		CE7C17531D47415A00AD5EFB /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		CED81A071D35F5060037CA59 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		CED81A0D1D363F1E0037CA59 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		CEF1D5111D34BEBC00A4BFFD /* TimeToEat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeToEat-Bridging-Header.h"; sourceTree = "<group>"; };
 		CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,6 +138,7 @@
 			children = (
 				CED81A0F1D3656AF0037CA59 /* ReuseViews */,
 				CE0D34731D40C27D00EC34B6 /* PlaceDetailsView.swift */,
+				CE0D34771D45F0E200EC34B6 /* SearchView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -145,7 +148,7 @@
 			children = (
 				CE5F39951D2E5B18004E1A50 /* MainViewController.swift */,
 				CE22DA831D34B72300E44E15 /* MapViewController.swift */,
-				CED81A0D1D363F1E0037CA59 /* SearchViewController.swift */,
+				CE7C17531D47415A00AD5EFB /* SearchViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -293,12 +296,13 @@
 			files = (
 				CEF1D5151D34EEEF00A4BFFD /* Fonts.swift in Sources */,
 				CE5F39831D2E5AD1004E1A50 /* AppDelegate.swift in Sources */,
-				CED81A0E1D363F1E0037CA59 /* SearchViewController.swift in Sources */,
 				CE0D34741D40C27D00EC34B6 /* PlaceDetailsView.swift in Sources */,
 				CE108E3A1D390FFB009F62C8 /* ActivityIndicator.swift in Sources */,
 				CE22DA841D34B72300E44E15 /* MapViewController.swift in Sources */,
 				CE5F399F1D2E6011004E1A50 /* Colors.swift in Sources */,
 				CE5F39961D2E5B18004E1A50 /* MainViewController.swift in Sources */,
+				CE0D34781D45F0E200EC34B6 /* SearchView.swift in Sources */,
+				CE7C17541D47415A00AD5EFB /* SearchViewController.swift in Sources */,
 				CE5F39A11D2E87B2004E1A50 /* Place.swift in Sources */,
 				CE0D34761D40EEBB00EC34B6 /* DetailsViewMode.swift in Sources */,
 				CE108E3C1D391A4C009F62C8 /* Location.swift in Sources */,

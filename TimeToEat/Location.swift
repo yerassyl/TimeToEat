@@ -31,7 +31,6 @@ class Location: NSObject, CLLocationManagerDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.distanceFilter = kCLLocationAccuracyHundredMeters
             locationManager.requestWhenInUseAuthorization()
-            locationManager.requestLocation()
         }
         
     }
@@ -40,6 +39,7 @@ class Location: NSObject, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
+            print(location)
             currentLocation = location
             //let userInfo : NSDictionary = ["location" : currentLocation!]
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -59,9 +59,14 @@ class Location: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    // API
     func startUpdatingLocation(){
         print("startUpdatingLocation")
         locationManager.startUpdatingLocation()
+    }
+    
+    func requestLocationOnce(){
+        locationManager.requestLocation()
     }
     
     

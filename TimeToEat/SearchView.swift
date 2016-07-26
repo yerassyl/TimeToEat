@@ -1,17 +1,17 @@
 //
-//  SearchViewController.swift
+//  SearchView.swift
 //  TimeToEat
 //
-//  Created by User on 26.07.16.
+//  Created by User on 25.07.16.
 //  Copyright © 2016 yerassyl. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class SearchViewController: UIViewController {
+class SearchView: UIView {
     // get singleton model class to work with logic
     let placesModelLogic = PlacesLogic.PlacesLogicSingleton
-    
+
     
     var nameTextField = UITextField()
     var priceSegmentedControl = UISegmentedControl()
@@ -19,25 +19,21 @@ class SearchViewController: UIViewController {
     
     var placesTableViewDelegate: PlacesTableViewProtocol!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
-        // set navigation bar title
-        self.navigationItem.titleView = UIImageView(image: UIImage(named: "logo_block"))
-        self.navigationItem.titleView?.tintColor = UIColor.whiteColor()
-        
-        self.navigationItem.setHidesBackButton(true, animated: false)
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Отмена", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.pop))]
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
-
+        self.hidden = true
+        
+        // delegate depends on which class initiated search view open
+        // MainViewController or MapViewController
+        placesTableViewDelegate = MainViewController()
+        
     }
     
-    func pop() {
-        self.navigationController?.popViewControllerAnimated(true)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-
-
+    
     func search() {
         let name = nameTextField.text!
         
@@ -72,33 +68,53 @@ class SearchViewController: UIViewController {
         }
         
         self.placesModelLogic.searchPlaces(name, priceFrom: priceFrom, priceTo: priceTo, distanceFrom: distanceFrom, distanceTo: distanceTo) { (Void) in
-            self.placesTableViewDelegate.reloadPlacesTableView()
-            self.navigationController?.popViewControllerAnimated(false)
+            // close search view
+            self.closeSearchView({ (Void) in
+                print("completed")
+            })
         }
-        
     }
     
     
     // MARK: UI
+    func openSearchView() {
+        self.hidden = false
+    }
+    
+    func closeSearchView(completion: (Void) -> Void ) {
+        //self.
+        //UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+            self.hidden = true
+        //}) { (animated: Bool) in
+        //    if animated {
+                print("print right before ")
+                completion()
+        //    }
+            
+        //}
+        
+    }
+    
     
     func setup() {
+        self.backgroundColor = UIColor.whiteColor()
         
         // По названию
         let nameLabel = UILabel()
         nameLabel.text = "По Названию"
         nameLabel.font = UIFont.getMainFont(18)
         nameLabel.textColor = UIColor.primaryDarkerRedColor()
-        self.view.addSubview(nameLabel)
+        self.addSubview(nameLabel)
         nameLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
-            make.top.equalTo(self.view).offset(navbarHeight+12)
+            make.left.equalTo(self).offset(10)
+            make.top.equalTo(self).offset(12)
         }
         
         nameTextField = UITextField()
         nameTextField.placeholder = "Введите название..."
-        self.view.addSubview(nameTextField)
+        self.addSubview(nameTextField)
         nameTextField.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
+            make.left.equalTo(self).offset(10)
             make.top.equalTo(nameLabel.snp_bottom).offset(12)
         }
         
@@ -107,9 +123,9 @@ class SearchViewController: UIViewController {
         categoriesLabel.text = "По категориям"
         categoriesLabel.font = UIFont.getMainFont(18)
         categoriesLabel.textColor = UIColor.primaryDarkerRedColor()
-        self.view.addSubview(categoriesLabel)
+        self.addSubview(categoriesLabel)
         categoriesLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
+            make.left.equalTo(self).offset(10)
             make.top.equalTo(nameTextField.snp_bottom).offset(12)
         }
         
@@ -119,11 +135,11 @@ class SearchViewController: UIViewController {
         priceLabel.font = UIFont.getMainFont(18)
         priceLabel.textColor = UIColor.primaryBlackColor()
         priceLabel.textAlignment = NSTextAlignment.Center
-        self.view.addSubview(priceLabel)
+        self.addSubview(priceLabel)
         priceLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
+            make.left.equalTo(self).offset(10)
             make.top.equalTo(categoriesLabel.snp_bottom).offset(12)
-            make.right.equalTo(self.view).offset(-10)
+            make.right.equalTo(self).offset(-10)
         }
         
         
@@ -132,24 +148,23 @@ class SearchViewController: UIViewController {
         priceSegmentedControl.insertSegmentWithTitle("До 1000 ₸", atIndex: 0, animated: false)
         priceSegmentedControl.insertSegmentWithTitle("1000₸-2000₸", atIndex: 1, animated: false)
         priceSegmentedControl.insertSegmentWithTitle("От 2000₸", atIndex: 2, animated: false)
-        self.view.addSubview(priceSegmentedControl)
+        self.addSubview(priceSegmentedControl)
         priceSegmentedControl.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
+            make.left.equalTo(self).offset(10)
             make.top.equalTo(priceLabel.snp_bottom).offset(12)
         }
         
         // Растояние
-        /*
         let distanceLabel = UILabel()
         distanceLabel.text = "Растояние"
         distanceLabel.font = UIFont.getMainFont(18)
         distanceLabel.textColor = UIColor.primaryBlackColor()
         distanceLabel.textAlignment = NSTextAlignment.Center
-        self.view.addSubview(distanceLabel)
+        self.addSubview(distanceLabel)
         distanceLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
+            make.left.equalTo(self).offset(10)
             make.top.equalTo(priceSegmentedControl.snp_bottom).offset(12)
-            make.right.equalTo(self.view).offset(-10)
+            make.right.equalTo(self).offset(-10)
         }
         
         distanceSegmentedControl = UISegmentedControl()
@@ -157,12 +172,11 @@ class SearchViewController: UIViewController {
         distanceSegmentedControl.insertSegmentWithTitle("До 500 м", atIndex: 0, animated: false)
         distanceSegmentedControl.insertSegmentWithTitle("500м - 1км", atIndex: 1, animated: false)
         distanceSegmentedControl.insertSegmentWithTitle("От 1км", atIndex: 2, animated: false)
-        self.view.addSubview(distanceSegmentedControl)
+        self.addSubview(distanceSegmentedControl)
         distanceSegmentedControl.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
+            make.left.equalTo(self).offset(10)
             make.top.equalTo(distanceLabel.snp_bottom).offset(12)
         }
-        */
         
         // НАЙТИ
         let findButton = UIButton()
@@ -172,16 +186,16 @@ class SearchViewController: UIViewController {
         findButton.titleLabel?.textColor = UIColor.whiteColor()
         findButton.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
         findButton.layer.cornerRadius = 4
-        self.view.addSubview(findButton)
+        self.addSubview(findButton)
         findButton.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
-            make.top.equalTo(priceSegmentedControl.snp_bottom).offset(26)
-            make.right.equalTo(self.view).offset(-10)
+            make.left.equalTo(self).offset(10)
+            make.top.equalTo(distanceSegmentedControl.snp_bottom).offset(26)
+            make.right.equalTo(self).offset(-10)
         }
         findButton.addTarget(self, action: #selector(self.search), forControlEvents: UIControlEvents.TouchUpInside)
         
         
     }
 
-
+    
 }

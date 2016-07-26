@@ -23,6 +23,10 @@ extension UIColor {
         return UIColor(red: 195.0/255, green: 195.0/255, blue: 195.0/255, alpha: 1.0)
     }
     
+    static func primaryBlackColor() -> UIColor {
+        return UIColor(red: 55.0/255, green: 55.0/255, blue: 55.0/255, alpha: 1.0)
+    }
+    
 //    static func primaryRedColor2() -> UIColor {
 //        return UIColor(red: 216.0/255.0, green: 0.0, blue: 39.0/255.0, alpha: 0.80)
 //    }

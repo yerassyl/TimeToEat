@@ -196,15 +196,21 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
     
     // MARK: - UI
     
+    func openSearchView(){
+        let searchVC = SearchViewController()
+        self.navigationController?.pushViewController(searchVC, animated: false)
+    }
+
     // navigate to main view, actually perform back navigation
     func openMainView(){
-        
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func setup() {
         // setup navbar
-        let listItem = UIBarButtonItem(image: UIImage(named: "map-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.openMainView) )
-        let searchItem = UIBarButtonItem(image: UIImage(named: "search-icon"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        self.navigationItem.titleView = UIImageView(image: UIImage(named: "logo_block"))
+        let listItem = UIBarButtonItem(image: UIImage(named: "list"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.openMainView) )
+        let searchItem = UIBarButtonItem(image: UIImage(named: "search-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.openSearchView))
         listItem.tintColor = UIColor.whiteColor()
         searchItem.tintColor = UIColor.whiteColor()
         if self.mapSelectedPlace == nil {
@@ -227,7 +233,7 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
         locationButton.setImage(UIImage(named: "location"), forState: UIControlState.Normal)
         self.view.addSubview(locationButton)
         locationButton.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view).offset(navbarHeight+120)
+            make.top.equalTo(self.view).offset(navbarHeight+80)
             make.right.equalTo(self.view).offset(-12)
         }
         locationButton.addTarget(self, action: #selector(self.centerToUserLocation), forControlEvents: UIControlEvents.TouchUpInside)
@@ -245,11 +251,10 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
         zoomOutButton.setImage(UIImage(named: "zoom-out"), forState: UIControlState.Normal)
         self.view.addSubview(zoomOutButton)
         zoomOutButton.snp_makeConstraints { (make) in
-            make.top.equalTo(zoomInButton.snp_bottom).offset(4)
+            make.top.equalTo(zoomInButton.snp_bottom).offset(8)
             make.right.equalTo(self.view).offset(-12)
         }
         zoomOutButton.addTarget(self, action: #selector(self.zoomOut), forControlEvents: UIControlEvents.TouchUpInside)
-        
         
         
     }
