@@ -11,14 +11,24 @@ import Foundation
 class PlaceDetailsView: UIView {
     var place: Place!
     
+    // static labels
+    var nameLabel = UILabel()
+    var addressLabel = UILabel()
+    var lunchType = UILabel()
+    var priceLabel = UILabel()
+    var callUsButton = UIButton()
+    
     // dynamic labels
-    var distanceLabel: UILabel!
+    var distanceLabel = UILabel()
+    
     
     // array of mode Y-coordinates (except invisible mode) in CGFloat type
     var modes = [DetailsViewMode.FullScreen,
                  DetailsViewMode.HalfScreen,
                  DetailsViewMode.SemiHide,
-                 DetailsViewMode.Hide]
+                 DetailsViewMode.Hide,
+                 DetailsViewMode.Invisible]
+    
     var currentDetailsViewMode: DetailsViewMode = .Hide
     
     override init(frame: CGRect) {
@@ -69,12 +79,20 @@ class PlaceDetailsView: UIView {
         return modes[minIndex]
     }
     
+    func callButtonPressed(){
+        self.callUsButton.enabled = false
+        self.callUsButton.alpha = 0.8
+        self.place.call(){
+            self.callUsButton.enabled = true
+            self.callUsButton.alpha = 1.0
+        }
+    }
+    
     // MARK: - Setup
     func setup() {
         self.backgroundColor = UIColor.whiteColor()
                 
         // SETUP PLACE INFORMATION LABELS
-        let nameLabel = UILabel()
         nameLabel.text = self.place.name
         nameLabel.font = UIFont.getMainFont(26)
         self.addSubview(nameLabel)
@@ -83,7 +101,6 @@ class PlaceDetailsView: UIView {
             make.left.equalTo(self).offset(28)
         }
         
-        let addressLabel = UILabel()
         addressLabel.text = self.place.adress?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) // remove leading and trailing spaces
         addressLabel.textAlignment = .Left
         addressLabel.font = UIFont.getMainFont(18)
@@ -93,7 +110,6 @@ class PlaceDetailsView: UIView {
             make.left.equalTo(self).offset(28)
         }
         
-        let distanceLabel = UILabel()
         distanceLabel.text = self.place.distanceToStr
         distanceLabel.font = UIFont.getMainFont(18)
         self.addSubview(distanceLabel)
@@ -102,7 +118,6 @@ class PlaceDetailsView: UIView {
             make.left.equalTo(self).offset(28)
         }
         
-        let lunchType = UILabel()
         lunchType.text = self.place.lunchType
         lunchType.font = UIFont.getMainFont(18)
         lunchType.textColor = UIColor.primaryRedColor()
@@ -112,7 +127,6 @@ class PlaceDetailsView: UIView {
             make.top.equalTo(distanceLabel.snp_bottom).offset(8)
         }
         
-        let priceLabel = UILabel()
         priceLabel.text = "\(self.place.lunchPrice) ₸"
         priceLabel.font = UIFont.getMainFont(48)
         priceLabel.textColor = UIColor.primaryDarkerRedColor()
@@ -149,7 +163,7 @@ class PlaceDetailsView: UIView {
         guard self.place.getFirstPhone() != "NA" else {
             return
         }
-        let callUsButton = UIButton()
+        callUsButton = UIButton()
         callUsButton.setTitle("Позвонить", forState: UIControlState.Normal)
         callUsButton.titleLabel?.font = UIFont.getMainFont(18)
         callUsButton.titleLabel?.textColor = UIColor.whiteColor()

@@ -27,10 +27,8 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var placesTableView: UITableView!
     var placesRefreshControl: UIRefreshControl!
     
-    var searchFilterView: SearchView!
     var mapItem: UIBarButtonItem!
     var searchItem: UIBarButtonItem!
-    var closeSearchViewItem: UIBarButtonItem!
     
     var LocationMgr: Location!
     var currentLocation = CLLocation()
@@ -55,21 +53,21 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         setup()
         
         LocationMgr = Location.SharedManager
+        self.LocationMgr.delegate = self
         self.displayNavBarActivity()
         placesModelLogic.loadInitialPlaces() {
             print("got places")
             self.dismissNavBarActivity()
             self.placesTableView.reloadData()
-            self.LocationMgr.delegate = self
             self.LocationMgr.requestLocationOnce()
         }
-
     }
     
     // pull-down to refresh places table view
     func refreshPlacesTableView(){
-        self.placesModelLogic.places.removeAll()
+        print("refresh")
         self.placesModelLogic.loadInitialPlaces { (Void) in
+            print(self.placesModelLogic.places.count)
             self.placesTableView.reloadData()
             self.placesRefreshControl.endRefreshing()
             self.LocationMgr.requestLocationOnce()
@@ -84,6 +82,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.placesModelLogic.places.sortInPlace({ (s1: Place, s2: Place) -> Bool in
                 return s1.distanceToDouble < s2.distanceToDouble
             })
+            print("reload data")
             self.placesTableView.reloadData()
         }
     }

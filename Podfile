@@ -11,5 +11,6 @@ target 'TimeToEat' do
   pod 'Kingfisher', '~> 2.4'
   pod 'Mapbox-iOS-SDK', '~> 3.2.3'
   pod 'AlamofireObjectMapper', '~> 3.0'
+  pod "TTRangeSlider"
   pod 'MapboxDirections.swift', :git => 'https://github.com/mapbox/MapboxDirections.swift.git', :tag => 'v0.6.0'
 end

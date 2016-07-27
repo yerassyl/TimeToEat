@@ -16,6 +16,7 @@ extension UIViewController {
         let item = UIBarButtonItem(customView: indicator)
         
         self.navigationItem.leftBarButtonItem = item
+        
     }
     
      func dismissNavBarActivity() {

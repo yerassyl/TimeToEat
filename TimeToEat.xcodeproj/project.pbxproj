@@ -23,6 +23,7 @@
 		CE5F39A31D2E88A5004E1A50 /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */; };
 		CE7C17541D47415A00AD5EFB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7C17531D47415A00AD5EFB /* SearchViewController.swift */; };
 		CED81A081D35F5060037CA59 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED81A071D35F5060037CA59 /* CoreLocation.framework */; };
+		CEE3F5B01D48BC08003F6DD3 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE3F5AF1D48BC08003F6DD3 /* CustomAnnotationView.swift */; };
 		CEF1D5151D34EEEF00A4BFFD /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
 		CE7C17531D47415A00AD5EFB /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		CED81A071D35F5060037CA59 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		CEE3F5AF1D48BC08003F6DD3 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		CEF1D5111D34BEBC00A4BFFD /* TimeToEat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeToEat-Bridging-Header.h"; sourceTree = "<group>"; };
 		CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -168,6 +170,7 @@
 			children = (
 				CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */,
 				CE108E391D390FFB009F62C8 /* ActivityIndicator.swift */,
+				CEE3F5AF1D48BC08003F6DD3 /* CustomAnnotationView.swift */,
 			);
 			name = ReuseViews;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				CE5F39A11D2E87B2004E1A50 /* Place.swift in Sources */,
 				CE0D34761D40EEBB00EC34B6 /* DetailsViewMode.swift in Sources */,
 				CE108E3C1D391A4C009F62C8 /* Location.swift in Sources */,
+				CEE3F5B01D48BC08003F6DD3 /* CustomAnnotationView.swift in Sources */,
 				CE5F39A31D2E88A5004E1A50 /* PlaceTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

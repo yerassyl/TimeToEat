@@ -7,15 +7,22 @@
 //
 
 import UIKit
+import TTRangeSlider
 
 class SearchViewController: UIViewController {
     // get singleton model class to work with logic
     let placesModelLogic = PlacesLogic.PlacesLogicSingleton
     
+    let lowerRange = 500.0
+    let upperRange = 1000.0
+    let priceUpperRangeMax: Float = 3000.0
+    var priceSlider: TTRangeSlider!
+    var nameTextField: UITextField!
+    var priceLowerRange: UILabel!
+    var priceUpperRange: UILabel!
     
-    var nameTextField = UITextField()
-    var priceSegmentedControl = UISegmentedControl()
-    var distanceSegmentedControl = UISegmentedControl()
+    var findButton: UIButton!
+
     
     var placesTableViewDelegate: PlacesTableViewProtocol!
     
@@ -39,39 +46,19 @@ class SearchViewController: UIViewController {
 
 
     func search() {
+        // display activity indicator and make search button disabled
+        self.displayNavBarActivity()
+        self.findButton.enabled = false
+        self.findButton.alpha = 0.8
+        
+        // get form values
         let name = nameTextField.text!
+        let priceFrom = Int(priceSlider.selectedMinimum)
+        let priceTo = Int(priceSlider.selectedMaximum)
         
-        var priceFrom = 0
-        var priceTo = 99999
-        var distanceFrom = 0.0
-        var distanceTo = 9999.0
-        
-        let priceSegmentIndex = priceSegmentedControl.selectedSegmentIndex
-        let distanceSegmentIndex = distanceSegmentedControl.selectedSegmentIndex
-        
-        switch priceSegmentIndex {
-        case 0:
-            priceTo = 1000
-        case 1:
-            priceFrom = 1000
-            priceTo = 2000
-        case 2:
-            priceFrom = 2000
-        default: break
-        }
-        
-        switch distanceSegmentIndex {
-        case 0:
-            distanceTo = 500.0
-        case 1:
-            distanceFrom = 500.0
-            distanceTo = 1000.0
-        case 2:
-            distanceFrom = 1000.0
-        default: break
-        }
-        
-        self.placesModelLogic.searchPlaces(name, priceFrom: priceFrom, priceTo: priceTo, distanceFrom: distanceFrom, distanceTo: distanceTo) { (Void) in
+        // start search
+        self.placesModelLogic.searchPlaces(name, priceFrom: priceFrom, priceTo: priceTo ) { (Void) in
+            self.dismissNavBarActivity()
             self.placesTableViewDelegate.reloadPlacesTableView()
             self.navigationController?.popViewControllerAnimated(false)
         }
@@ -126,46 +113,27 @@ class SearchViewController: UIViewController {
             make.right.equalTo(self.view).offset(-10)
         }
         
-        
-        priceSegmentedControl = UISegmentedControl()
-        priceSegmentedControl.tintColor = UIColor.primaryRedColor()
-        priceSegmentedControl.insertSegmentWithTitle("До 1000 ₸", atIndex: 0, animated: false)
-        priceSegmentedControl.insertSegmentWithTitle("1000₸-2000₸", atIndex: 1, animated: false)
-        priceSegmentedControl.insertSegmentWithTitle("От 2000₸", atIndex: 2, animated: false)
-        self.view.addSubview(priceSegmentedControl)
-        priceSegmentedControl.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
-            make.top.equalTo(priceLabel.snp_bottom).offset(12)
+        // Price Range slider
+        priceSlider = TTRangeSlider()
+        priceSlider.minValue = 0.0
+        priceSlider.maxValue = priceUpperRangeMax
+        priceSlider.selectedMinimum = 500.0
+        priceSlider.selectedMaximum = 1000.0
+        priceSlider.tintColorBetweenHandles = UIColor.primaryDarkerRedColor()
+        priceSlider.tintColor = UIColor.primaryRedColor()
+        priceSlider.minDistance = 400.0
+        priceSlider.enableStep = true
+        priceSlider.step = 100.0
+        priceSlider.lineHeight = 2.0
+        self.view.addSubview(priceSlider)
+        priceSlider.snp_makeConstraints { (make) in
+            make.top.equalTo(priceLabel.snp_bottom).offset(4)
+            make.left.equalTo(self.view).offset(12)
+            make.right.equalTo(self.view).offset(-12)
         }
-        
-        // Растояние
-        /*
-        let distanceLabel = UILabel()
-        distanceLabel.text = "Растояние"
-        distanceLabel.font = UIFont.getMainFont(18)
-        distanceLabel.textColor = UIColor.primaryBlackColor()
-        distanceLabel.textAlignment = NSTextAlignment.Center
-        self.view.addSubview(distanceLabel)
-        distanceLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
-            make.top.equalTo(priceSegmentedControl.snp_bottom).offset(12)
-            make.right.equalTo(self.view).offset(-10)
-        }
-        
-        distanceSegmentedControl = UISegmentedControl()
-        distanceSegmentedControl.tintColor = UIColor.primaryRedColor()
-        distanceSegmentedControl.insertSegmentWithTitle("До 500 м", atIndex: 0, animated: false)
-        distanceSegmentedControl.insertSegmentWithTitle("500м - 1км", atIndex: 1, animated: false)
-        distanceSegmentedControl.insertSegmentWithTitle("От 1км", atIndex: 2, animated: false)
-        self.view.addSubview(distanceSegmentedControl)
-        distanceSegmentedControl.snp_makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
-            make.top.equalTo(distanceLabel.snp_bottom).offset(12)
-        }
-        */
-        
+            
         // НАЙТИ
-        let findButton = UIButton()
+        findButton = UIButton()
         findButton.setTitle("Найти", forState: UIControlState.Normal)
         findButton.backgroundColor = UIColor.primaryRedColor()
         findButton.titleLabel?.font = UIFont.getMainFont(18)
@@ -175,7 +143,7 @@ class SearchViewController: UIViewController {
         self.view.addSubview(findButton)
         findButton.snp_makeConstraints { (make) in
             make.left.equalTo(self.view).offset(10)
-            make.top.equalTo(priceSegmentedControl.snp_bottom).offset(26)
+            make.top.equalTo(priceSlider.snp_bottom).offset(26)
             make.right.equalTo(self.view).offset(-10)
         }
         findButton.addTarget(self, action: #selector(self.search), forControlEvents: UIControlEvents.TouchUpInside)

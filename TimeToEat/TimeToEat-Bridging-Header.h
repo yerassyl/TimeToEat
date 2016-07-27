@@ -3,3 +3,4 @@
 //
 
 #import <Backendless/Backendless.h>
+#import <TTRangeSlider/TTRangeSlider.h>

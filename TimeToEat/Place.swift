@@ -43,13 +43,14 @@ class Place: NSObject {
         return phones[0]
     }
     
-    func call() {
+    func call(completion: (Void)->Void) {
         let phone = self.getFirstPhone()
         if phone != "NA" {
             if let url = NSURL(string: "tel://\(phone)") {
                 UIApplication.sharedApplication().openURL(url)
             }
         }
+        completion()
     }
     
     
@@ -71,11 +72,12 @@ class PlacesLogic: NSObject  {
     
     // Load Places for the launch screen
     func loadInitialPlaces(completion: (Void) -> Void ) {
+        self.places.removeAll()
         let dataStore = backendless.data.of(Place.ofClass())
         let whereClause = "lunchPrice > 0" // just for now
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
-        
+        print("load initial places")
         dataStore.find(dataQuery, response: { (result: BackendlessCollection!) in
             let placesResult = result.getCurrentPage()
             for obj in placesResult {
@@ -103,10 +105,8 @@ class PlacesLogic: NSObject  {
             for obj in placesResult {
                 if let place = obj as? Place {
                     self.places.append(place)
-                    print(place.lunchPrice)
                 }
             }
-            
             completion()
         }) { (error: Fault!) in
             print("loadInitialPlaces error: \(error)" )

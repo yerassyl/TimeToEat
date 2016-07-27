@@ -15,29 +15,38 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
     let placesModelLogic = PlacesLogic.PlacesLogicSingleton
     
     var map: MGLMapView!
+    
     var currentLocation: CLLocation?
     
-    // this variable determines whether user selected a place or not
+    // this variables determines whether user selected a place or not
     // if not show current location as center
     // if yes, show place location at the top of map and a place details view on top of map to half of the screen height
     var mapSelectedPlace: Place?
+    var mapSelectedAnnotation: MGLAnnotation?
+    
     var detailsView: PlaceDetailsView!
+    var mapTapGestureRecognizer: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        self.map.delegate = self
+
         let LocationMgr = Location.SharedManager
         LocationMgr.delegate = self
         LocationMgr.startUpdatingLocation()
         
         // create details view that is hided in the bottom of the screen initially
         detailsView = PlaceDetailsView(frame: CGRect(x: 0, y: screenHeight+10, width: screenWidth, height: screenHeight ) )
+        self.view.addSubview(detailsView)
+        
+        mapTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(setMapActive) )
         setPanGestureRecognizer(detailsView)
-        setMapTapRecognizer()
+        
         
         // if user selected a place, center to place pin and show details view
         if mapSelectedPlace != nil {
+            setMapTapGestureRecognizer()
+            detailsView.currentDetailsViewMode = DetailsViewMode.HalfScreen
             self.selectPlace(mapSelectedPlace!)
         }
         setPins()
@@ -48,7 +57,6 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
     // set pins of loaded places
     func setPins() {
         for place in placesModelLogic.places {
-            
             let placeAnnotation = MGLPointAnnotation()
             placeAnnotation.coordinate = CLLocationCoordinate2D(latitude: place.lat, longitude: place.lon)
             //  make custom pin for selected place
@@ -59,14 +67,17 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
     
     // select place, show its pin on a map and show details view in HalfScreen mode
     func selectPlace(selectedPlace: Place) {
+        self.mapSelectedPlace = selectedPlace
         // center place pin to top half screen
-        
-        map.setCenterCoordinate(CLLocationCoordinate2D(latitude: (mapSelectedPlace!.lat),longitude: (mapSelectedPlace!.lon)), zoomLevel: 15.0, animated: false)
-        detailsView.place = mapSelectedPlace
+        UIView.animateWithDuration(0.4) { 
+            self.map.setCenterCoordinate(CLLocationCoordinate2D(latitude: (selectedPlace.lat),longitude: (selectedPlace.lon)), zoomLevel: 15.0, animated: false)
+        }
+        detailsView.place = selectedPlace
         detailsView.setup()
-        self.view.addSubview(detailsView!)
         
-        detailsView.currentDetailsViewMode = DetailsViewMode.HalfScreen
+        if detailsView.currentDetailsViewMode == DetailsViewMode.Hide {
+            detailsView.currentDetailsViewMode = DetailsViewMode.SemiHide
+        }
         detailsView.setDetailsViewPosition(detailsView.currentDetailsViewMode)
     }
     
@@ -87,9 +98,10 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
     
     // MARK: - PlaceDetailsView: detailsView gesture responder (selector) methods
     
-    func setDetailsViewPosition() {
+    func setMapActive() {
         if detailsView.currentDetailsViewMode == DetailsViewMode.HalfScreen {
             detailsView.currentDetailsViewMode = DetailsViewMode.SemiHide
+            self.removeMapTapGestureRecognizer()
         }
         detailsView.setDetailsViewPosition(detailsView.currentDetailsViewMode)
     }
@@ -106,6 +118,13 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
             let finalPosition = detailsView.frame.origin.y
             // find closest mode to finalPosition
             let closestMode = detailsView.findClosestMode(finalPosition)
+            if closestMode == DetailsViewMode.HalfScreen {
+                self.setMapTapGestureRecognizer()
+            }else if closestMode == DetailsViewMode.SemiHide {
+                self.removeMapTapGestureRecognizer()
+            }else if closestMode == DetailsViewMode.Hide {
+                self.removeMapTapGestureRecognizer()
+            }
             detailsView.setDetailsViewPosition(closestMode)
             
         }
@@ -121,8 +140,12 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
     // MARK: - GestureRecognizers
     
     // when map is clicked hide details view animated
-    func setMapTapRecognizer() {
-        map.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setDetailsViewPosition) ))
+    func setMapTapGestureRecognizer() {
+        map.addGestureRecognizer(mapTapGestureRecognizer)
+    }
+    
+    func removeMapTapGestureRecognizer() {
+        map.removeGestureRecognizer(mapTapGestureRecognizer)
     }
     
     // when details view is dragged, be carefull not to call this when detailsView == nil
@@ -134,10 +157,40 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
     
     // MARK: - MGLMapViewDelegate
     func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
-        print("selected")
-        print(annotation.title)
+        print("annotation selected")
+        // deselect previous annotation
+        if self.mapSelectedAnnotation != nil {
+            let reuseIdentifier = reuseIdentifierForAnnotation(self.mapSelectedAnnotation!)
+            if let annotationImage = mapView.dequeueReusableAnnotationImageWithIdentifier(reuseIdentifier) {
+                if annotationImage.image == UIImage(named: "selected-pin")! {
+                    annotationImage.image = UIImage(named: "pin")!
+                } else {
+                    annotationImage.image = UIImage(named: "pin")!
+                }
+            }
+
+        }
+        
+        // select tapped annotation
+        
+        let reuseIdentifier = reuseIdentifierForAnnotation(annotation)
+        if let annotationImage = mapView.dequeueReusableAnnotationImageWithIdentifier(reuseIdentifier) {
+            if annotationImage.image == UIImage(named: "pin")! {
+                annotationImage.image = UIImage(named: "selected-pin")!
+            } else {
+                annotationImage.image = UIImage(named: "selected-pin")!
+            }
+            self.mapSelectedAnnotation = annotation
+        }
+        
+
+        for place in self.placesModelLogic.places {
+            if place.name == annotation.title! {
+                self.selectPlace(place)
+                break
+            }
+        }
     }
-    
     
     
     func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
@@ -149,8 +202,8 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
         // if the annotation image hasn‘t been used yet, initialize it here with the reuse identifier
         if annotationImage == nil {
             // lookup the image for this annotation
-            let image = imageForAnnotation(annotation)
-            //image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(0, 0, image.size.height/2, 0))
+            var image = imageForAnnotation(annotation)
+            image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(0, 0, image.size.height/2, 0))
             annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: reuseIdentifier)
         }
         
@@ -177,7 +230,8 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
             if self.mapSelectedPlace != nil {
                 if title == self.mapSelectedPlace?.name {
                     imageName = "selected-pin"
-                }else {
+                    self.mapSelectedAnnotation = annotation
+                } else {
                     imageName = "pin"
                 }
             }else {
@@ -187,6 +241,7 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
         }
         return UIImage(named: imageName)!
     }
+    
     
     // MARK: - LocationProtocol
     func locationDidUpdateToLocation(location: CLLocation) {
@@ -214,12 +269,11 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
         listItem.tintColor = UIColor.whiteColor()
         searchItem.tintColor = UIColor.whiteColor()
         if self.mapSelectedPlace == nil {
-            
             self.navigationItem.rightBarButtonItems = [listItem, searchItem]
         }
         
-        
         map = MGLMapView(frame: view.bounds, styleURL: MGLStyle.streetsStyleURLWithVersion(9))
+        map.delegate = self
         map.zoomEnabled = true
         map.scrollEnabled = true
         map.rotateEnabled = true
@@ -256,9 +310,9 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
         }
         zoomOutButton.addTarget(self, action: #selector(self.zoomOut), forControlEvents: UIControlEvents.TouchUpInside)
         
-        
     }
     
     
 }
+
 
