@@ -12,5 +12,6 @@ target 'TimeToEat' do
   pod 'Mapbox-iOS-SDK', '~> 3.2.3'
   pod 'AlamofireObjectMapper', '~> 3.0'
   pod "TTRangeSlider"
+  pod 'DLRadioButton', '~> 1.4'
   pod 'MapboxDirections.swift', :git => 'https://github.com/mapbox/MapboxDirections.swift.git', :tag => 'v0.6.0'
 end

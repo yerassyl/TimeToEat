@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		45F2738889C8C43F68326ED9 /* Pods_TimeToEat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB90BA5096B96CE4E320DCD /* Pods_TimeToEat.framework */; };
-		CE0D34701D40859100EC34B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0D346F1D40859100EC34B6 /* LaunchScreen.storyboard */; };
 		CE0D34741D40C27D00EC34B6 /* PlaceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D34731D40C27D00EC34B6 /* PlaceDetailsView.swift */; };
 		CE0D34761D40EEBB00EC34B6 /* DetailsViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D34751D40EEBB00EC34B6 /* DetailsViewMode.swift */; };
-		CE0D34781D45F0E200EC34B6 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D34771D45F0E200EC34B6 /* SearchView.swift */; };
 		CE108E3A1D390FFB009F62C8 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE108E391D390FFB009F62C8 /* ActivityIndicator.swift */; };
 		CE108E3C1D391A4C009F62C8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE108E3B1D391A4C009F62C8 /* Location.swift */; };
 		CE22DA841D34B72300E44E15 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE22DA831D34B72300E44E15 /* MapViewController.swift */; };
@@ -22,8 +20,10 @@
 		CE5F39A11D2E87B2004E1A50 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F39A01D2E87B2004E1A50 /* Place.swift */; };
 		CE5F39A31D2E88A5004E1A50 /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */; };
 		CE7C17541D47415A00AD5EFB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7C17531D47415A00AD5EFB /* SearchViewController.swift */; };
+		CE9DE8FF1D5065D60073FC40 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE9DE8FE1D5065D60073FC40 /* Launch Screen.storyboard */; };
 		CED81A081D35F5060037CA59 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED81A071D35F5060037CA59 /* CoreLocation.framework */; };
-		CEE3F5B01D48BC08003F6DD3 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE3F5AF1D48BC08003F6DD3 /* CustomAnnotationView.swift */; };
+		CEE3F5B21D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE3F5B11D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift */; };
+		CEE3F5B71D4F3243003F6DD3 /* SortingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE3F5B61D4F3243003F6DD3 /* SortingType.swift */; };
 		CEF1D5151D34EEEF00A4BFFD /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,10 +31,8 @@
 		124572F240B2D690472B0540 /* Pods-TimeToEat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeToEat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TimeToEat/Pods-TimeToEat.debug.xcconfig"; sourceTree = "<group>"; };
 		81F96A18AC138C71CB374D65 /* Pods-TimeToEat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeToEat.release.xcconfig"; path = "Pods/Target Support Files/Pods-TimeToEat/Pods-TimeToEat.release.xcconfig"; sourceTree = "<group>"; };
 		8AB90BA5096B96CE4E320DCD /* Pods_TimeToEat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeToEat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE0D346F1D40859100EC34B6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE0D34731D40C27D00EC34B6 /* PlaceDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDetailsView.swift; sourceTree = "<group>"; };
 		CE0D34751D40EEBB00EC34B6 /* DetailsViewMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewMode.swift; sourceTree = "<group>"; };
-		CE0D34771D45F0E200EC34B6 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		CE108E391D390FFB009F62C8 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		CE108E3B1D391A4C009F62C8 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CE22DA831D34B72300E44E15 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -47,8 +45,10 @@
 		CE5F39A01D2E87B2004E1A50 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
 		CE7C17531D47415A00AD5EFB /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CE9DE8FE1D5065D60073FC40 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CED81A071D35F5060037CA59 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		CEE3F5AF1D48BC08003F6DD3 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
+		CEE3F5B11D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractionGestureRecognizer.swift; sourceTree = "<group>"; };
+		CEE3F5B61D4F3243003F6DD3 /* SortingType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingType.swift; sourceTree = "<group>"; };
 		CEF1D5111D34BEBC00A4BFFD /* TimeToEat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeToEat-Bridging-Header.h"; sourceTree = "<group>"; };
 		CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,7 +121,7 @@
 				CE5F39821D2E5AD1004E1A50 /* AppDelegate.swift */,
 				CE5F39891D2E5AD1004E1A50 /* Assets.xcassets */,
 				CE5F398E1D2E5AD1004E1A50 /* Info.plist */,
-				CE0D346F1D40859100EC34B6 /* LaunchScreen.storyboard */,
+				CE9DE8FE1D5065D60073FC40 /* Launch Screen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -140,7 +140,6 @@
 			children = (
 				CED81A0F1D3656AF0037CA59 /* ReuseViews */,
 				CE0D34731D40C27D00EC34B6 /* PlaceDetailsView.swift */,
-				CE0D34771D45F0E200EC34B6 /* SearchView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -148,6 +147,7 @@
 		CE5F399C1D2E5D35004E1A50 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				CEE3F5B31D4F1FAC003F6DD3 /* Extensions */,
 				CE5F39951D2E5B18004E1A50 /* MainViewController.swift */,
 				CE22DA831D34B72300E44E15 /* MapViewController.swift */,
 				CE7C17531D47415A00AD5EFB /* SearchViewController.swift */,
@@ -161,6 +161,7 @@
 				CE5F399E1D2E6011004E1A50 /* Colors.swift */,
 				CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */,
 				CE0D34751D40EEBB00EC34B6 /* DetailsViewMode.swift */,
+				CEE3F5B61D4F3243003F6DD3 /* SortingType.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -170,9 +171,16 @@
 			children = (
 				CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */,
 				CE108E391D390FFB009F62C8 /* ActivityIndicator.swift */,
-				CEE3F5AF1D48BC08003F6DD3 /* CustomAnnotationView.swift */,
+				CEE3F5B11D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift */,
 			);
 			name = ReuseViews;
+			sourceTree = "<group>";
+		};
+		CEE3F5B31D4F1FAC003F6DD3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,7 +218,7 @@
 				TargetAttributes = {
 					CE5F397E1D2E5AD1004E1A50 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = TUMQ73UZTG;
+						DevelopmentTeam = AB65P3C5XF;
 					};
 				};
 			};
@@ -237,8 +245,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9DE8FF1D5065D60073FC40 /* Launch Screen.storyboard in Resources */,
 				CE5F398A1D2E5AD1004E1A50 /* Assets.xcassets in Resources */,
-				CE0D34701D40859100EC34B6 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,12 +312,12 @@
 				CE22DA841D34B72300E44E15 /* MapViewController.swift in Sources */,
 				CE5F399F1D2E6011004E1A50 /* Colors.swift in Sources */,
 				CE5F39961D2E5B18004E1A50 /* MainViewController.swift in Sources */,
-				CE0D34781D45F0E200EC34B6 /* SearchView.swift in Sources */,
 				CE7C17541D47415A00AD5EFB /* SearchViewController.swift in Sources */,
 				CE5F39A11D2E87B2004E1A50 /* Place.swift in Sources */,
+				CEE3F5B21D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift in Sources */,
+				CEE3F5B71D4F3243003F6DD3 /* SortingType.swift in Sources */,
 				CE0D34761D40EEBB00EC34B6 /* DetailsViewMode.swift in Sources */,
 				CE108E3C1D391A4C009F62C8 /* Location.swift in Sources */,
-				CEE3F5B01D48BC08003F6DD3 /* CustomAnnotationView.swift in Sources */,
 				CE5F39A31D2E88A5004E1A50 /* PlaceTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,7 +418,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TimeToEat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yerchik.com.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeToEat/TimeToEat-Bridging-Header.h";
@@ -428,7 +436,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TimeToEat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yerchik.com.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeToEat/TimeToEat-Bridging-Header.h";

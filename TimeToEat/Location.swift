@@ -22,7 +22,7 @@ class Location: NSObject, CLLocationManagerDelegate {
     static let SharedManager = Location()
     private var locationManager = CLLocationManager()
     var currentLocation: CLLocation?
-    var delegate : LocationProtocol!
+    var delegate: LocationProtocol!
     
     override init(){
         super.init()
@@ -39,7 +39,6 @@ class Location: NSObject, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            print(location)
             currentLocation = location
             //let userInfo : NSDictionary = ["location" : currentLocation!]
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -61,8 +60,11 @@ class Location: NSObject, CLLocationManagerDelegate {
     
     // API
     func startUpdatingLocation(){
-        print("startUpdatingLocation")
         locationManager.startUpdatingLocation()
+    }
+    
+    func stopUpdatingLocation(){
+        locationManager.stopUpdatingLocation()
     }
     
     func requestLocationOnce(){

@@ -10,19 +10,21 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-
 var screenWidth: CGFloat!
 var screenHeight: CGFloat!
 var navbarHeight: CGFloat! // actually navbar height + statusbar height
 
 protocol PlacesTableViewProtocol {
-    func reloadPlacesTableView()
+    func reloadPlacesTableView(sortingType: SortingType )
 }
 
 
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LocationProtocol, PlacesTableViewProtocol {
     // get singleton model class to work with logic
     let placesModelLogic = PlacesLogic.PlacesLogicSingleton
+    var sortingType = SortingType.byDistance
+    // get location singleton class to work with location logic
+    let LocationMgr = Location.SharedManager
     
     var placesTableView: UITableView!
     var placesRefreshControl: UIRefreshControl!
@@ -30,11 +32,15 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var mapItem: UIBarButtonItem!
     var searchItem: UIBarButtonItem!
     
-    var LocationMgr: Location!
-    var currentLocation = CLLocation()
+    var currentLocation: CLLocation?
+    
+    // ViewControllers to be pushed 
+    let mapVC = MapViewController()
+    let searchVC = SearchViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view.backgroundColor = UIColor.whiteColor()
         screenWidth = UIScreen.mainScreen().bounds.width
         screenHeight = UIScreen.mainScreen().bounds.height
@@ -52,50 +58,54 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         setup()
         
-        LocationMgr = Location.SharedManager
         self.LocationMgr.delegate = self
         self.displayNavBarActivity()
         placesModelLogic.loadInitialPlaces() {
-            print("got places")
             self.dismissNavBarActivity()
             self.placesTableView.reloadData()
             self.LocationMgr.requestLocationOnce()
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        self.reloadPlacesTableView(self.sortingType)
+    }
+    
+    
     // pull-down to refresh places table view
-    func refreshPlacesTableView(){
-        print("refresh")
+    func refreshPlacesTableView() {
         self.placesModelLogic.loadInitialPlaces { (Void) in
-            print(self.placesModelLogic.places.count)
             self.placesTableView.reloadData()
             self.placesRefreshControl.endRefreshing()
-            self.LocationMgr.requestLocationOnce()
-            self.calculateDistancesAndSort()
+            if self.currentLocation == nil {
+                self.LocationMgr.requestLocationOnce()
+            }else {
+                self.calculateDistancesAndSort()
+            }
         }
     }
     
-    // initiate distances calculation and sort ascending
-    func calculateDistancesAndSort(){
-        print("calculate distances and sort")
-        self.placesModelLogic.calculateDistances(self.currentLocation) {
-            self.placesModelLogic.places.sortInPlace({ (s1: Place, s2: Place) -> Bool in
-                return s1.distanceToDouble < s2.distanceToDouble
-            })
-            print("reload data")
-            self.placesTableView.reloadData()
+    // initiate distances calculation and sort ascending if sorting type is by distance
+    func calculateDistancesAndSort() {
+        if self.currentLocation != nil {
+            self.placesModelLogic.calculateDistances(self.currentLocation!) {
+                if self.sortingType == SortingType.byDistance {
+                    self.placesModelLogic.sortBy(self.sortingType)
+                }
+                self.placesTableView.reloadData()
+            }
         }
     }
     
     // MARK: - PlacesTableViewProtocol
-    func reloadPlacesTableView() {
+    func reloadPlacesTableView(sortingType: SortingType) {
         self.placesTableView.reloadData()
+        self.sortingType = sortingType
         calculateDistancesAndSort()
     }
     
     // MARK: - LocationProtocol
     func locationDidUpdateToLocation(location: CLLocation) {
-        print("got location")
         currentLocation = location
         // should run only once initially
         calculateDistancesAndSort()
@@ -123,7 +133,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.cellHeight = 134.0
-    
+        
         return cell
     }
     
@@ -135,7 +145,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedPlace = self.placesModelLogic.places[indexPath.row]
-        let mapVC = MapViewController()
         mapVC.mapSelectedPlace = selectedPlace
         self.navigationController?.pushViewController(mapVC, animated: true)
     }
@@ -143,13 +152,11 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - UI
     
     func openSearchView() {
-        let searchVC = SearchViewController()
         searchVC.placesTableViewDelegate = self
         self.navigationController?.pushViewController(searchVC, animated: false)
     }
     
     func openMapView() {
-        let mapVC = MapViewController()
         self.navigationController?.pushViewController(mapVC, animated: true)
     }
     
@@ -184,6 +191,5 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
     } // END SETUP
-    
 
 }

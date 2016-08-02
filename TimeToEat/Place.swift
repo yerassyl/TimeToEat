@@ -67,19 +67,17 @@ class PlacesLogic: NSObject  {
     
     // store list of loaded places
     var places = [Place]()
-    
     // MARK: - Backendless 
     
     // Load Places for the launch screen
     func loadInitialPlaces(completion: (Void) -> Void ) {
-        self.places.removeAll()
         let dataStore = backendless.data.of(Place.ofClass())
         let whereClause = "lunchPrice > 0" // just for now
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
-        print("load initial places")
         dataStore.find(dataQuery, response: { (result: BackendlessCollection!) in
             let placesResult = result.getCurrentPage()
+            self.places = []
             for obj in placesResult {
                 if let place = obj as? Place {
                     self.places.append(place)
@@ -93,14 +91,13 @@ class PlacesLogic: NSObject  {
     }
     
     func searchPlaces(name: String = "", priceFrom: Int = 0, priceTo: Int = 9999, distanceFrom: Double = 0.0, distanceTo: Double = 0.0, completion: (Void) -> Void ) {
-        
-        self.places.removeAll()
         let dataStore = backendless.data.of(Place.ofClass())
         let whereClause = "name LIKE '%\(name)%' and lunchPrice >= \(priceFrom) and lunchPrice <= \(priceTo)"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
-        
+
         dataStore.find(dataQuery, response: { (result: BackendlessCollection!) in
+            self.places.removeAll()
             let placesResult = result.getCurrentPage()
             for obj in placesResult {
                 if let place = obj as? Place {
@@ -115,30 +112,52 @@ class PlacesLogic: NSObject  {
     
     // MARK: - Places 
     
+    // Sort places in ascending order
+    func sortBy(sortingType: SortingType){
+        switch sortingType {
+        case .byDistance:
+            self.places.sortInPlace({ (s1: Place, s2: Place) -> Bool in
+                return s1.distanceToDouble < s2.distanceToDouble
+            })
+        case .byPrice:
+            self.places.sortInPlace({ (s1: Place, s2: Place) -> Bool in
+                return s1.lunchPrice < s2.lunchPrice
+            })
+        }
+        
+    }
+    
     func filterToDistance(distanceFrom: Double, distanceTo: Double) {
         self.places = self.places.filter { (place: Place) -> Bool in
             return place.distanceToDouble >= distanceFrom && place.distanceToDouble <= distanceTo
         }
     }
     
+    // MARK: - Mapbox 
+    // calculate distance between two loations offline
+    func getDistance(currentLocation: CLLocation, placeLocation: CLLocation ) -> CLLocationDistance {
+        return currentLocation.distanceFromLocation(placeLocation)
+    }
+    
     // MARK: - Mapbox Directions API
     
     // calculate distances to loaded places
+    // use ofline method: getDistance
     func calculateDistances(currentLocation: CLLocation, completion: (Void)->Void) {
-        var i = 0
+        //var i = 0
         for place in self.places {
-            self.getDistanceToPlace(currentLocation, place: place) {
-                // to do: what if couldn't calculate distance to
-                distance, distanceDouble in
-                place.distanceToStr = distance
-                place.distanceToDouble = distanceDouble
-                if i == self.places.count - 1 {
-                    completion()
-                    return
-                }
-                i += 1
+            let placeLocation = CLLocation(latitude: place.lat, longitude: place.lon)
+            let distance = self.getDistance(currentLocation, placeLocation: placeLocation )
+            var distanceStr = ""
+            place.distanceToDouble = distance
+            if distance > 1000 {
+                distanceStr = "📍\(round(distance/100)/10) км до вас"
+            } else {
+                distanceStr = "📍\(Int(distance)) м до вас"
             }
+            place.distanceToStr = "\(distanceStr)"
         }
+        completion()
     }
     
     // calculate distance between two points
