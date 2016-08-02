@@ -15,7 +15,7 @@ var screenHeight: CGFloat!
 var navbarHeight: CGFloat! // actually navbar height + statusbar height
 
 protocol PlacesTableViewProtocol {
-    func reloadPlacesTableView(sortingType: SortingType )
+    func reloadPlacesTableView(sortingType: SortingType, searched: Bool )
 }
 
 
@@ -28,6 +28,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var placesTableView: UITableView!
     var placesRefreshControl: UIRefreshControl!
+    var nothingFoundLabel: UILabel!
     
     var mapItem: UIBarButtonItem!
     var searchItem: UIBarButtonItem!
@@ -98,10 +99,15 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     // MARK: - PlacesTableViewProtocol
-    func reloadPlacesTableView(sortingType: SortingType) {
-        self.placesTableView.reloadData()
-        self.sortingType = sortingType
-        calculateDistancesAndSort()
+    func reloadPlacesTableView(sortingType: SortingType, searched: Bool = false) {
+        if searched && self.placesModelLogic.places.count == 0 {
+            self.placesTableView.backgroundView = nothingFoundLabel
+        } else {
+            self.placesTableView.reloadData()
+            self.sortingType = sortingType
+            calculateDistancesAndSort()
+        }
+        
     }
     
     // MARK: - LocationProtocol
@@ -172,7 +178,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         searchItem = UIBarButtonItem(image: UIImage(named: "search-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.openSearchView))
         searchItem.tintColor = UIColor.whiteColor()
         self.navigationItem.rightBarButtonItems = [mapItem, searchItem]
-
+        
         // set back button which sends to this controler
         let backButton = UIBarButtonItem()
         //backButton.setBackButtonBackgroundImage(UIImage(named: "back"), forState: UIControlState.Normal, barMetrics: UIBarMetrics.Default)
@@ -180,6 +186,21 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         backButton.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationItem.backBarButtonItem = backButton
+
+        
+        // set nothing found label
+        nothingFoundLabel = UILabel()
+        nothingFoundLabel.frame = CGRect(x: 0, y: screenHeight/2, width: screenWidth, height: 44)
+        nothingFoundLabel.textAlignment = .Center
+        nothingFoundLabel.text = "Ничего не найдено"
+        nothingFoundLabel.font = UIFont.getMainFont(18)
+        nothingFoundLabel.textColor = UIColor.primaryRedColor()
+        //nothingFoundLabel.hidden = true
+//        nothingFoundLabel.snp_makeConstraints { (make) in
+//            make.left.equalTo(self.view).offset(20)
+//            make.top.equalTo(self.view).offset(navbarHeight+20)
+//            make.right.equalTo(self.view).offset(-20)
+//        }
         
         // table view
         placesTableView.separatorColor = UIColor.primaryRedColor()

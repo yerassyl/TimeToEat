@@ -73,7 +73,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
             }
             // if view controller that initiated search is MainViewController
             if self.placesTableViewDelegate != nil {
-                self.placesTableViewDelegate!.reloadPlacesTableView(self.sortingType)
+                self.placesTableViewDelegate!.reloadPlacesTableView(self.sortingType, searched: true)
             }
             if self.pinsDelegate != nil {
                self.pinsDelegate?.reloadPins()
