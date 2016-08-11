@@ -88,6 +88,8 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
                 // show message that user's city is not detected
                 self.placesTableView.backgroundView = self.noCityView
             }else {
+                self.enableTabBar()
+                self.placesTableView.addSubview(self.placesRefreshControl)
                 self.placesTableView.reloadData()
                 self.loadedInitialPlaces = true
                 self.calculateDistancesAndSort()
@@ -150,6 +152,8 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
                 guard UserCity.city.name != nil else {
                     // show message that user's city is not detected
                     self.placesTableView.backgroundView = self.noCityView
+                    self.disableTabBar()
+                    self.placesRefreshControl.removeFromSuperview()
                     SwiftSpinner.hide()
                     return
                 }
@@ -182,8 +186,15 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
         self.navigationController?.pushViewController(mapVC, animated: true)
     }
     
+    func disableTabBar(){
+        self.navigationItem.rightBarButtonItems = []
+    }
+    
+    func enableTabBar(){
+        self.navigationItem.rightBarButtonItems =  [mapItem, searchItem]
+    }
+    
     func setup() {
-        print("setup MainVC")
         // set navigation bar title
         self.navigationItem.titleView = UIImageView(image: UIImage(named: "logo_block"))
         self.navigationItem.titleView?.tintColor = UIColor.whiteColor()

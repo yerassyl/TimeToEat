@@ -26,7 +26,7 @@ class NoPlacesFound: UIView {
         nothingFoundLabel.textAlignment = .Center
         nothingFoundLabel.text = "Ничего не найдено"
         nothingFoundLabel.font = UIFont.getMainFont(18)
-        nothingFoundLabel.textColor = UIColor.primaryRedColor()
+        nothingFoundLabel.textColor = UIColor.primaryBlackColor()
         self.addSubview(nothingFoundLabel)
         nothingFoundLabel.snp_makeConstraints { (make) in
             make.left.equalTo(self).offset(20)

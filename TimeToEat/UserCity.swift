@@ -31,9 +31,9 @@ class UserCity:CLGeocoder {
             if error == nil && placemarks?.count > 0 {
                 placeMark = placemarks![0] as CLPlacemark
                 self.city.name = placeMark.locality
-                print("user city is: \(placeMark.locality) ")
+                //print("user city is: \(placeMark.locality) ")
             } else {
-                print("getUserLocation error: \(error)")
+                //print("getUserLocation error: \(error)")
                 
             }
             // reset user defaults

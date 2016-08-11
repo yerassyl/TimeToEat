@@ -12,6 +12,7 @@ class NoCityView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var placesTableViewDelegate: PlacesTableViewProtocol?
     
+    var cryingMiras: UIImageView!
     var noCityDetectedLabel: UILabel!
     var citiesPickerView: UIPickerView!
     var continueButton: UIButton!
@@ -25,7 +26,6 @@ class NoCityView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         setup()
         citiesPickerView.delegate = self
         citiesPickerView.dataSource = self
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,7 +44,7 @@ class NoCityView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // MARK: - UIPickerViewDelegate
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        print(row)
+        //print(row)
         return cities[row]
     }
     
@@ -83,27 +83,21 @@ class NoCityView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func setup(){
+        cryingMiras = UIImageView()
+        cryingMiras.image = UIImage(named: "crying")
+        self.addSubview(cryingMiras)
+        
         noCityDetectedLabel = UILabel()
-        noCityDetectedLabel.text = ":( Мы не смогли определить ваш город, выберите ваш город из списка ниже"
+        noCityDetectedLabel.text = "Мы не смогли определить ваше местоположение. Выберите город \n из списка ниже:"
         noCityDetectedLabel.font = UIFont.getMainFont(18)
-        noCityDetectedLabel.textColor = UIColor.primaryRedColor()
+        noCityDetectedLabel.textColor = UIColor.blackColor()
         noCityDetectedLabel.textAlignment = .Center
         noCityDetectedLabel.lineBreakMode = .ByWordWrapping
         noCityDetectedLabel.numberOfLines = 0
         self.addSubview(noCityDetectedLabel)
-        noCityDetectedLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self).offset(20)
-            make.right.equalTo(self).offset(-20)
-            make.top.equalTo(self).offset(screenHeight/3)
-        }
         
         citiesPickerView = UIPickerView()
         self.addSubview(citiesPickerView)
-        citiesPickerView.snp_makeConstraints { (make) in
-            make.left.equalTo(self).offset(20)
-            make.top.equalTo(noCityDetectedLabel.snp_bottom).offset(12)
-            make.right.equalTo(self).offset(-20)
-        }
         
         continueButton = UIButton()
         continueButton.titleLabel?.font = UIFont.getMainFont(18)
@@ -113,11 +107,33 @@ class NoCityView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         self.disableContinueButton()
         self.addSubview(continueButton)
         continueButton.addTarget(self, action: #selector(self.continueButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        // setup views from bottom to top
         continueButton.snp_makeConstraints { (make) in
             make.left.equalTo(self).offset(20)
-            make.top.equalTo(citiesPickerView.snp_bottom).offset(12)
             make.right.equalTo(self).offset(-20)
+            make.bottom.equalTo(self).offset(-40)
         }
+        
+        citiesPickerView.snp_makeConstraints { (make) in
+            make.left.equalTo(self).offset(20)
+            make.right.equalTo(self).offset(-20)
+            make.bottom.equalTo(continueButton.snp_top).offset(-15)
+        }
+        
+        noCityDetectedLabel.snp_makeConstraints { (make) in
+            make.left.equalTo(self).offset(20)
+            make.right.equalTo(self).offset(-20)
+            make.bottom.equalTo(citiesPickerView.snp_top).offset(-15)
+        }
+        
+        cryingMiras.snp_makeConstraints { (make) in
+            make.left.equalTo(self).offset(screenWidth/2-35)
+            make.bottom.equalTo(noCityDetectedLabel.snp_top).offset(-15)
+        }
+        
+
+    
         
     }
     

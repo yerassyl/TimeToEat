@@ -16,7 +16,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     
     let lowerRange = 500.0
     let upperRange = 1000.0
-    let priceUpperRangeMax: Float = 3000.0
+    let priceUpperRangeMax: Float = 5000.0
     var priceSlider = TTRangeSlider()
     var nameTextField = UITextField()
     var priceLowerRange: UILabel!
@@ -167,7 +167,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         priceSlider.minValue = 0.0
         priceSlider.maxValue = priceUpperRangeMax
         priceSlider.selectedMinimum = 0.0
-        priceSlider.selectedMaximum = 3000.0
+        priceSlider.selectedMaximum = 5000.0
         priceSlider.tintColorBetweenHandles = UIColor.primaryDarkerRedColor()
         priceSlider.tintColor = UIColor.primaryRedColor()
         priceSlider.minDistance = 400.0
@@ -201,13 +201,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         
         byDistanceRadio.snp_makeConstraints { (make) in
             make.left.equalTo(self.view).offset(20)
-            make.top.equalTo(sortByLabel.snp_bottom).offset(8)
+            make.top.equalTo(sortByLabel.snp_bottom).offset(12)
             make.right.equalTo(self.view).offset(-20)
         }
 
         byPriceRadio.snp_makeConstraints { (make) in
             make.left.equalTo(self.view).offset(20)
-            make.top.equalTo(byDistanceRadio.snp_bottom).offset(16)
+            make.top.equalTo(byDistanceRadio.snp_bottom).offset(20)
             make.right.equalTo(self.view).offset(-20)
         }
         

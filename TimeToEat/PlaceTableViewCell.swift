@@ -41,8 +41,9 @@ class PlaceTableViewCell: UITableViewCell {
         contentView.addSubview(placeImageView)
         
         nameLabel = UILabel()
-        nameLabel.text = "Loading..."
+        nameLabel.text = "Загрузка..."
         nameLabel.font = UIFont.getMainFont(20)
+        
         contentView.addSubview(nameLabel)
         
         distanceToLabel = UILabel()
@@ -62,8 +63,8 @@ class PlaceTableViewCell: UITableViewCell {
         businessLunchPriceLabel.textColor = UIColor.primaryDarkerRedColor()
         contentView.addSubview(businessLunchPriceLabel)
         
-        let cellBottomLine = UIView(frame: CGRect(x: 0.0, y: self.cellHeight, width: Double(screenWidth), height: 1.0) )
-        cellBottomLine.backgroundColor = UIColor.primaryRedColor()
+        let cellBottomLine = UIView(frame: CGRect(x: 19.0, y: self.cellHeight, width: Double(screenWidth), height: 1.0) )
+        cellBottomLine.backgroundColor = UIColor.secondaryGreyColor()
         contentView.addSubview(cellBottomLine)
         
         updateConstraints()
