@@ -21,12 +21,12 @@ class UserCity:CLGeocoder {
     static func getUserLocationCity(currentLocation: CLLocation, completion:(Void )-> Void ){
         let geocoder = CLGeocoder()
 //        let AlmatyLocation = CLLocation(latitude: 43.292330, longitude: 76.946797)
-        let AstanaLocation = CLLocation(latitude: 51.154063, longitude: 71.466758)
+//        let AstanaLocation = CLLocation(latitude: 51.154063, longitude: 71.466758)
         
         // set user defaults to english to force city name return in English
         let userDefaultLanguages = [ NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages") ]
         NSUserDefaults.standardUserDefaults().setObject(["en"], forKey: "AppleLanguages")
-        geocoder.reverseGeocodeLocation(AstanaLocation) { (placemarks:[CLPlacemark]?, error: NSError?) in
+        geocoder.reverseGeocodeLocation(currentLocation) { (placemarks:[CLPlacemark]?, error: NSError?) in
             var placeMark: CLPlacemark!
             if error == nil && placemarks?.count > 0 {
                 placeMark = placemarks![0] as CLPlacemark
