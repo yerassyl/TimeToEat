@@ -10,8 +10,10 @@ target 'TimeToEat' do
   pod 'SnapKit', '~> 0.15.0'
   pod 'Kingfisher', '~> 2.4'
   pod 'Mapbox-iOS-SDK', '~> 3.2.3'
-  pod 'AlamofireObjectMapper', '~> 3.0'
+  pod "SwiftSpinner"
   pod "TTRangeSlider"
   pod 'DLRadioButton', '~> 1.4'
-  pod 'MapboxDirections.swift', :git => 'https://github.com/mapbox/MapboxDirections.swift.git', :tag => 'v0.6.0'
+  #pod 'MapboxDirections.swift', :git => 'https://github.com/mapbox/MapboxDirections.swift.git', :tag => 'v0.6.0'
+  #pod 'MapboxGeocoder.swift', :git => 'https://github.com/mapbox/MapboxGeocoder.swift.git', :tag => 'v0.5.0'
+
 end

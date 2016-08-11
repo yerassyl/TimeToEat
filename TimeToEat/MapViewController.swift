@@ -52,12 +52,13 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
         
         mapGestureRecognizer = InteractionGestureRecognizer(target: self, action: #selector(setMapActive))
         mapGestureRecognizer.myDelegate = self
+
     }
     
     override func viewWillAppear(animated: Bool) {
         LocationMgr.startUpdatingLocation()
         detailsView.setDetailsViewPosition(DetailsViewMode.Invisible)
-        
+        self.hideDetailsViewModebutton()
         if self.mapSelectedPlace == nil {
             self.navigationItem.rightBarButtonItems = [listItem, searchItem]
         }else {
@@ -330,7 +331,7 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
         self.view.addSubview(detailsViewModebutton)
         detailsViewModebutton.snp_makeConstraints { (make) in
             make.left.equalTo(self.view).offset(screenWidth/2-22)
-            make.bottom.equalTo(self.view).offset(46)
+            make.bottom.equalTo(self.view).offset(64)
         }
         detailsViewModebutton.addTarget(self, action: #selector(self.detailsViewModeButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
     }
@@ -347,7 +348,7 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
     func hideDetailsViewModebutton() {
         UIView.animateWithDuration(1.5) {
             self.detailsViewModebutton.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.view).offset(46)
+                make.bottom.equalTo(self.view).offset(64)
             })
         }
     }
@@ -360,40 +361,8 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
 }
 
 
-extension MapViewController: InteractionGestureRecognizerDelegate, MapPinsProtocol {
-    func interactionDidHappen() {
-        self.setMapActive()
-    }
-    
-    func reloadPins() {
-        self.removeAllPins()
-        self.setPins()
-    }
-    
-    // set pins of loaded places
-    func setPins() {
-        for place in placesModelLogic.places {
-            let placeAnnotation = MGLPointAnnotation()
-            placeAnnotation.coordinate = CLLocationCoordinate2D(latitude: place.lat, longitude: place.lon)
-            //  make custom pin for selected place
-            placeAnnotation.title = place.name
-            map.addAnnotation(placeAnnotation)
-        }
-    }
-    
-    func removeAllPins() {
-        guard let annotations = self.map.annotations else { return print("Annotations Error") }
-        if annotations.count != 0 {
-            for annotation in annotations {
-                self.map.removeAnnotation(annotation)
-            }
-        } else {
-            return
-        }
-    }
-    
-    
-}
+
+
 
 
 

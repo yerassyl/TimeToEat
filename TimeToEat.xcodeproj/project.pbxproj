@@ -20,10 +20,17 @@
 		CE5F39A11D2E87B2004E1A50 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F39A01D2E87B2004E1A50 /* Place.swift */; };
 		CE5F39A31D2E88A5004E1A50 /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */; };
 		CE7C17541D47415A00AD5EFB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7C17531D47415A00AD5EFB /* SearchViewController.swift */; };
+		CE9968931D5A0C5A00519970 /* UserCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9968921D5A0C5A00519970 /* UserCity.swift */; };
 		CE9DE8FF1D5065D60073FC40 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE9DE8FE1D5065D60073FC40 /* Launch Screen.storyboard */; };
+		CE9DE9011D54A1C60073FC40 /* SearchBoundary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DE9001D54A1C60073FC40 /* SearchBoundary.swift */; };
+		CE9DE9081D54F2E70073FC40 /* InteractionGestureExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DE9071D54F2E70073FC40 /* InteractionGestureExtension.swift */; };
 		CED81A081D35F5060037CA59 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED81A071D35F5060037CA59 /* CoreLocation.framework */; };
 		CEE3F5B21D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE3F5B11D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift */; };
 		CEE3F5B71D4F3243003F6DD3 /* SortingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE3F5B61D4F3243003F6DD3 /* SortingType.swift */; };
+		CEEEB0891D5B33A20038BD29 /* NoCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEEB0881D5B33A20038BD29 /* NoCityView.swift */; };
+		CEEEB08B1D5C14810038BD29 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEEB08A1D5C14810038BD29 /* ErrorCode.swift */; };
+		CEEEB08D1D5C15B00038BD29 /* TableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEEB08C1D5C15B00038BD29 /* TableViewExtension.swift */; };
+		CEEEB08F1D5C39E40038BD29 /* NoPlacesFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEEB08E1D5C39E40038BD29 /* NoPlacesFound.swift */; };
 		CEF1D5151D34EEEF00A4BFFD /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,10 +52,17 @@
 		CE5F39A01D2E87B2004E1A50 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
 		CE7C17531D47415A00AD5EFB /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CE9968921D5A0C5A00519970 /* UserCity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCity.swift; sourceTree = "<group>"; };
 		CE9DE8FE1D5065D60073FC40 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		CE9DE9001D54A1C60073FC40 /* SearchBoundary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBoundary.swift; sourceTree = "<group>"; };
+		CE9DE9071D54F2E70073FC40 /* InteractionGestureExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractionGestureExtension.swift; sourceTree = "<group>"; };
 		CED81A071D35F5060037CA59 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CEE3F5B11D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractionGestureRecognizer.swift; sourceTree = "<group>"; };
 		CEE3F5B61D4F3243003F6DD3 /* SortingType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingType.swift; sourceTree = "<group>"; };
+		CEEEB0881D5B33A20038BD29 /* NoCityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoCityView.swift; sourceTree = "<group>"; };
+		CEEEB08A1D5C14810038BD29 /* ErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
+		CEEEB08C1D5C15B00038BD29 /* TableViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewExtension.swift; sourceTree = "<group>"; };
+		CEEEB08E1D5C39E40038BD29 /* NoPlacesFound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPlacesFound.swift; sourceTree = "<group>"; };
 		CEF1D5111D34BEBC00A4BFFD /* TimeToEat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeToEat-Bridging-Header.h"; sourceTree = "<group>"; };
 		CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,6 +145,8 @@
 			children = (
 				CE5F39A01D2E87B2004E1A50 /* Place.swift */,
 				CE108E3B1D391A4C009F62C8 /* Location.swift */,
+				CE9968921D5A0C5A00519970 /* UserCity.swift */,
+				CE9DE9001D54A1C60073FC40 /* SearchBoundary.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -147,10 +163,9 @@
 		CE5F399C1D2E5D35004E1A50 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CEE3F5B31D4F1FAC003F6DD3 /* Extensions */,
-				CE5F39951D2E5B18004E1A50 /* MainViewController.swift */,
-				CE22DA831D34B72300E44E15 /* MapViewController.swift */,
-				CE7C17531D47415A00AD5EFB /* SearchViewController.swift */,
+				CE9DE9021D54A6190073FC40 /* MainViewController */,
+				CE9DE9051D54F29D0073FC40 /* MapViewController */,
+				CE9DE9061D54F2A50073FC40 /* SearchViewController */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -162,8 +177,35 @@
 				CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */,
 				CE0D34751D40EEBB00EC34B6 /* DetailsViewMode.swift */,
 				CEE3F5B61D4F3243003F6DD3 /* SortingType.swift */,
+				CEEEB08A1D5C14810038BD29 /* ErrorCode.swift */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		CE9DE9021D54A6190073FC40 /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CE5F39951D2E5B18004E1A50 /* MainViewController.swift */,
+				CEEEB08C1D5C15B00038BD29 /* TableViewExtension.swift */,
+			);
+			name = MainViewController;
+			sourceTree = "<group>";
+		};
+		CE9DE9051D54F29D0073FC40 /* MapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CE22DA831D34B72300E44E15 /* MapViewController.swift */,
+				CE9DE9071D54F2E70073FC40 /* InteractionGestureExtension.swift */,
+			);
+			name = MapViewController;
+			sourceTree = "<group>";
+		};
+		CE9DE9061D54F2A50073FC40 /* SearchViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CE7C17531D47415A00AD5EFB /* SearchViewController.swift */,
+			);
+			name = SearchViewController;
 			sourceTree = "<group>";
 		};
 		CED81A0F1D3656AF0037CA59 /* ReuseViews */ = {
@@ -172,15 +214,10 @@
 				CE5F39A21D2E88A5004E1A50 /* PlaceTableViewCell.swift */,
 				CE108E391D390FFB009F62C8 /* ActivityIndicator.swift */,
 				CEE3F5B11D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift */,
+				CEEEB0881D5B33A20038BD29 /* NoCityView.swift */,
+				CEEEB08E1D5C39E40038BD29 /* NoPlacesFound.swift */,
 			);
 			name = ReuseViews;
-			sourceTree = "<group>";
-		};
-		CEE3F5B31D4F1FAC003F6DD3 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,7 +255,7 @@
 				TargetAttributes = {
 					CE5F397E1D2E5AD1004E1A50 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = AB65P3C5XF;
+						DevelopmentTeam = TUMQ73UZTG;
 					};
 				};
 			};
@@ -308,17 +345,24 @@
 				CEF1D5151D34EEEF00A4BFFD /* Fonts.swift in Sources */,
 				CE5F39831D2E5AD1004E1A50 /* AppDelegate.swift in Sources */,
 				CE0D34741D40C27D00EC34B6 /* PlaceDetailsView.swift in Sources */,
+				CEEEB08B1D5C14810038BD29 /* ErrorCode.swift in Sources */,
 				CE108E3A1D390FFB009F62C8 /* ActivityIndicator.swift in Sources */,
 				CE22DA841D34B72300E44E15 /* MapViewController.swift in Sources */,
+				CEEEB08F1D5C39E40038BD29 /* NoPlacesFound.swift in Sources */,
 				CE5F399F1D2E6011004E1A50 /* Colors.swift in Sources */,
 				CE5F39961D2E5B18004E1A50 /* MainViewController.swift in Sources */,
 				CE7C17541D47415A00AD5EFB /* SearchViewController.swift in Sources */,
+				CE9DE9081D54F2E70073FC40 /* InteractionGestureExtension.swift in Sources */,
 				CE5F39A11D2E87B2004E1A50 /* Place.swift in Sources */,
 				CEE3F5B21D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift in Sources */,
 				CEE3F5B71D4F3243003F6DD3 /* SortingType.swift in Sources */,
+				CEEEB0891D5B33A20038BD29 /* NoCityView.swift in Sources */,
+				CE9968931D5A0C5A00519970 /* UserCity.swift in Sources */,
 				CE0D34761D40EEBB00EC34B6 /* DetailsViewMode.swift in Sources */,
 				CE108E3C1D391A4C009F62C8 /* Location.swift in Sources */,
 				CE5F39A31D2E88A5004E1A50 /* PlaceTableViewCell.swift in Sources */,
+				CE9DE9011D54A1C60073FC40 /* SearchBoundary.swift in Sources */,
+				CEEEB08D1D5C15B00038BD29 /* TableViewExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,12 +461,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TimeToEat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = yerchik.com.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeToEat/TimeToEat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -435,11 +481,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TimeToEat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = yerchik.com.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeToEat/TimeToEat-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

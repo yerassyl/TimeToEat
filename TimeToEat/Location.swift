@@ -54,7 +54,7 @@ class Location: NSObject, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.AuthorizedWhenInUse {
-            locationManager.requestLocation()
+            locationManager.startUpdatingLocation()
         }
     }
     
@@ -66,10 +66,11 @@ class Location: NSObject, CLLocationManagerDelegate {
     func stopUpdatingLocation(){
         locationManager.stopUpdatingLocation()
     }
-    
-    func requestLocationOnce(){
-        locationManager.requestLocation()
-    }
+
+// Available starting IOS 9
+//    func requestLocationOnce(){
+//        locationManager.requestLocation()
+//    }
     
     
 }

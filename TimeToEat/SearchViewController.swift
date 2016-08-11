@@ -166,8 +166,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         // Price Range slider
         priceSlider.minValue = 0.0
         priceSlider.maxValue = priceUpperRangeMax
-        priceSlider.selectedMinimum = 500.0
-        priceSlider.selectedMaximum = 1000.0
+        priceSlider.selectedMinimum = 0.0
+        priceSlider.selectedMaximum = 3000.0
         priceSlider.tintColorBetweenHandles = UIColor.primaryDarkerRedColor()
         priceSlider.tintColor = UIColor.primaryRedColor()
         priceSlider.minDistance = 400.0
