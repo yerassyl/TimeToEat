@@ -17,11 +17,13 @@ class City:NSObject {
 class UserCity:CLGeocoder {
     
     static var city = City()
+    static var cities = ["Almaty","Astana", "Issyk"] // hardcoded available cities
     
     static func getUserLocationCity(currentLocation: CLLocation, completion:(Void )-> Void ){
         let geocoder = CLGeocoder()
 //        let AlmatyLocation = CLLocation(latitude: 43.292330, longitude: 76.946797)
 //        let AstanaLocation = CLLocation(latitude: 51.154063, longitude: 71.466758)
+//        let California = CLLocation(latitude: 37.820984, longitude: -120.453091)
         
         // set user defaults to english to force city name return in English
         let userDefaultLanguages = [ NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages") ]
@@ -41,6 +43,17 @@ class UserCity:CLGeocoder {
             completion()
         }
     }
+    
+    // prereq: self.city.name != nil
+    static func isCityAvailable() -> Bool{
+        for city in self.cities {
+            if city == self.city.name! {
+                return true
+            }
+        }
+        return false
+    }
+    
     
     
 }

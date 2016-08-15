@@ -36,6 +36,7 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
     var placesRefreshControl: UIRefreshControl!
     var noPlacesFoundView: NoPlacesFound!
     var noCityView: NoCityView!
+    var notAvailableCityView: NotAvailableCityView!
     
     var mapItem: UIBarButtonItem!
     var searchItem: UIBarButtonItem!
@@ -72,7 +73,6 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
         setup()
         
         //self.displayNavBarActivity()
-        
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -149,6 +149,7 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
 
         if UserCity.city.name == nil {
             UserCity.getUserLocationCity(currentLocation!, completion: { (Void) in
+                // If city is not detected, tell the user
                 guard UserCity.city.name != nil else {
                     // show message that user's city is not detected
                     self.placesTableView.backgroundView = self.noCityView
@@ -157,6 +158,15 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
                     SwiftSpinner.hide()
                     return
                 }
+                // if city is not available, tell the user
+                guard UserCity.isCityAvailable() != false else {
+                    self.placesTableView.backgroundView = self.notAvailableCityView
+                    self.disableTabBar()
+                    self.placesRefreshControl.removeFromSuperview()
+                    SwiftSpinner.hide()
+                    return
+                }
+                // if city is detected and available, load places
                 if !self.loadedInitialPlaces {
                     self.loadInitialPlaces()
                 }
@@ -218,6 +228,8 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
         noPlacesFoundView = NoPlacesFound()
         noCityView = NoCityView()
         noCityView.placesTableViewDelegate = self
+        
+        notAvailableCityView = NotAvailableCityView()
         
         // table view
         placesTableView.separatorColor = UIColor.primaryRedColor()

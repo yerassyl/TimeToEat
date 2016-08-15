@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let APP_ID = "C8ECC9B0-E777-2652-FF42-ABA435B01E00"
     let SECRET_KEY = "FA640681-92BB-7B08-FFD6-C4E0F2A65600"
     let VERSION_NUM = "v1"
- 
     
     var window: UIWindow?
 

@@ -31,6 +31,7 @@
 		CEEEB08B1D5C14810038BD29 /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEEB08A1D5C14810038BD29 /* ErrorCode.swift */; };
 		CEEEB08D1D5C15B00038BD29 /* TableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEEB08C1D5C15B00038BD29 /* TableViewExtension.swift */; };
 		CEEEB08F1D5C39E40038BD29 /* NoPlacesFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEEB08E1D5C39E40038BD29 /* NoPlacesFound.swift */; };
+		CEEEB0B11D621DA20038BD29 /* NotAvailableCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEEB0B01D621DA20038BD29 /* NotAvailableCityView.swift */; };
 		CEF1D5151D34EEEF00A4BFFD /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		CEEEB08A1D5C14810038BD29 /* ErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		CEEEB08C1D5C15B00038BD29 /* TableViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewExtension.swift; sourceTree = "<group>"; };
 		CEEEB08E1D5C39E40038BD29 /* NoPlacesFound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPlacesFound.swift; sourceTree = "<group>"; };
+		CEEEB0B01D621DA20038BD29 /* NotAvailableCityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotAvailableCityView.swift; sourceTree = "<group>"; };
 		CEF1D5111D34BEBC00A4BFFD /* TimeToEat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeToEat-Bridging-Header.h"; sourceTree = "<group>"; };
 		CEF1D5141D34EEEF00A4BFFD /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -216,6 +218,7 @@
 				CEE3F5B11D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift */,
 				CEEEB0881D5B33A20038BD29 /* NoCityView.swift */,
 				CEEEB08E1D5C39E40038BD29 /* NoPlacesFound.swift */,
+				CEEEB0B01D621DA20038BD29 /* NotAvailableCityView.swift */,
 			);
 			name = ReuseViews;
 			sourceTree = "<group>";
@@ -255,7 +258,7 @@
 				TargetAttributes = {
 					CE5F397E1D2E5AD1004E1A50 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = TUMQ73UZTG;
+						DevelopmentTeam = AB65P3C5XF;
 					};
 				};
 			};
@@ -363,6 +366,7 @@
 				CE5F39A31D2E88A5004E1A50 /* PlaceTableViewCell.swift in Sources */,
 				CE9DE9011D54A1C60073FC40 /* SearchBoundary.swift in Sources */,
 				CEEEB08D1D5C15B00038BD29 /* TableViewExtension.swift in Sources */,
+				CEEEB0B11D621DA20038BD29 /* NotAvailableCityView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,7 +467,7 @@
 				INFOPLIST_FILE = TimeToEat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yerchik.com.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeToEat/TimeToEat-Bridging-Header.h";
@@ -483,7 +487,7 @@
 				INFOPLIST_FILE = TimeToEat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yerchik.com.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeToEat/TimeToEat-Bridging-Header.h";
