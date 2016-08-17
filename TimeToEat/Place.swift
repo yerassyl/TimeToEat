@@ -87,8 +87,8 @@ class PlacesLogic: NSObject  {
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
         dataQuery.queryOptions.pageSize = PAGESIZE
-        self.getPlaces(dataStore, dataQuery: dataQuery){
-            completion(error: nil)
+        self.getPlaces(dataStore, dataQuery: dataQuery) { (queryError) in
+            completion(error: queryError)
         }
         
     }
@@ -107,7 +107,7 @@ class PlacesLogic: NSObject  {
         }
     }
     
-    func getPlaces(dataStore:IDataStore, dataQuery: BackendlessDataQuery, completion:(Void)->Void){
+    func getPlaces(dataStore:IDataStore, dataQuery: BackendlessDataQuery, completion:(queryError: ErrorCode?)->Void){
         dataStore.find(dataQuery, response: { ( result: BackendlessCollection!) in
             var size = result.getCurrentPage().count
             var placesResult = result.getCurrentPage()
@@ -121,8 +121,9 @@ class PlacesLogic: NSObject  {
                 placesResult = result.nextPage().getCurrentPage()
                 size = placesResult.count
             }
-            completion()
+            completion(queryError: nil)
         }) { (error: Fault!) in
+            completion(queryError: ErrorCode.couldNotLoadPlaces)
             print("loadInitialPlaces error: \(error)" )
         }
     }

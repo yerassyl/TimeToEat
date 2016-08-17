@@ -11,7 +11,7 @@ import Foundation
 
 protocol LocationProtocol {
     func locationDidUpdateToLocation(location: CLLocation)
-    
+    func locationDidFailWithError(error: NSError)
 }
 
 //let kLocationDidChangeNotification = "LocationDidChangeNotification"
@@ -32,7 +32,6 @@ class Location: NSObject, CLLocationManagerDelegate {
             locationManager.distanceFilter = kCLLocationAccuracyHundredMeters
             locationManager.requestWhenInUseAuthorization()
         }
-        
     }
     
     // MARK: - CLLocationManagerDelegate
@@ -49,7 +48,8 @@ class Location: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-    
+        self.delegate.locationDidFailWithError(error)
+        print("location did fail with errro")
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -66,7 +66,11 @@ class Location: NSObject, CLLocationManagerDelegate {
     func stopUpdatingLocation(){
         locationManager.stopUpdatingLocation()
     }
-
+    
+    func requestWhenInUserAuthorization(){
+        self.locationManager.requestWhenInUseAuthorization()
+    }
+    
 // Available starting IOS 9
 //    func requestLocationOnce(){
 //        locationManager.requestLocation()

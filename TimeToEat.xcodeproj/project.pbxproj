@@ -24,6 +24,7 @@
 		CE9DE8FF1D5065D60073FC40 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE9DE8FE1D5065D60073FC40 /* Launch Screen.storyboard */; };
 		CE9DE9011D54A1C60073FC40 /* SearchBoundary.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DE9001D54A1C60073FC40 /* SearchBoundary.swift */; };
 		CE9DE9081D54F2E70073FC40 /* InteractionGestureExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DE9071D54F2E70073FC40 /* InteractionGestureExtension.swift */; };
+		CEA05A611D63242800E969F1 /* NoLocationServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA05A601D63242800E969F1 /* NoLocationServicesView.swift */; };
 		CED81A081D35F5060037CA59 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED81A071D35F5060037CA59 /* CoreLocation.framework */; };
 		CEE3F5B21D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE3F5B11D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift */; };
 		CEE3F5B71D4F3243003F6DD3 /* SortingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE3F5B61D4F3243003F6DD3 /* SortingType.swift */; };
@@ -57,6 +58,7 @@
 		CE9DE8FE1D5065D60073FC40 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CE9DE9001D54A1C60073FC40 /* SearchBoundary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBoundary.swift; sourceTree = "<group>"; };
 		CE9DE9071D54F2E70073FC40 /* InteractionGestureExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractionGestureExtension.swift; sourceTree = "<group>"; };
+		CEA05A601D63242800E969F1 /* NoLocationServicesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoLocationServicesView.swift; sourceTree = "<group>"; };
 		CED81A071D35F5060037CA59 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CEE3F5B11D49FAB5003F6DD3 /* InteractionGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractionGestureRecognizer.swift; sourceTree = "<group>"; };
 		CEE3F5B61D4F3243003F6DD3 /* SortingType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingType.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				CEEEB0881D5B33A20038BD29 /* NoCityView.swift */,
 				CEEEB08E1D5C39E40038BD29 /* NoPlacesFound.swift */,
 				CEEEB0B01D621DA20038BD29 /* NotAvailableCityView.swift */,
+				CEA05A601D63242800E969F1 /* NoLocationServicesView.swift */,
 			);
 			name = ReuseViews;
 			sourceTree = "<group>";
@@ -258,7 +261,7 @@
 				TargetAttributes = {
 					CE5F397E1D2E5AD1004E1A50 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = AB65P3C5XF;
+						DevelopmentTeam = TUMQ73UZTG;
 					};
 				};
 			};
@@ -367,6 +370,7 @@
 				CE9DE9011D54A1C60073FC40 /* SearchBoundary.swift in Sources */,
 				CEEEB08D1D5C15B00038BD29 /* TableViewExtension.swift in Sources */,
 				CEEEB0B11D621DA20038BD29 /* NotAvailableCityView.swift in Sources */,
+				CEA05A611D63242800E969F1 /* NoLocationServicesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,7 +471,7 @@
 				INFOPLIST_FILE = TimeToEat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = yerchik.com.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeToEat/TimeToEat-Bridging-Header.h";
@@ -487,7 +491,7 @@
 				INFOPLIST_FILE = TimeToEat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = yerchik.com.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeToEat/TimeToEat-Bridging-Header.h";

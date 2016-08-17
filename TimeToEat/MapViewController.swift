@@ -266,6 +266,9 @@ class MapViewController: UIViewController, LocationProtocol, MGLMapViewDelegate 
     func locationDidUpdateToLocation(location: CLLocation) {
         self.currentLocation = location
     }
+    func locationDidFailWithError(error: NSError) {
+        print("failed to update location")
+    }
     
     // MARK: - UI
     

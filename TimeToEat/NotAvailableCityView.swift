@@ -13,7 +13,6 @@ class NotAvailableCityView: UIView {
     var cryingMiras: UIImageView!
     var notAvailableCityLabel: UILabel!
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()

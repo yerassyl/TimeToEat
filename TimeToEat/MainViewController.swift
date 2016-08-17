@@ -37,6 +37,7 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
     var noPlacesFoundView: NoPlacesFound!
     var noCityView: NoCityView!
     var notAvailableCityView: NotAvailableCityView!
+    var noLocationServicesView: NoLocationServicesView!
     
     var mapItem: UIBarButtonItem!
     var searchItem: UIBarButtonItem!
@@ -71,28 +72,38 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
         placesTableView.addSubview(placesRefreshControl)
         
         setup()
-        
         //self.displayNavBarActivity()
     }
 
     override func viewDidAppear(animated: Bool) {
         self.reloadPlacesTableView(self.sortingType)
         showInitialSpinnerLoad() // should show only once
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .Restricted, .Denied, .NotDetermined:
+                self.LocationMgr.requestWhenInUserAuthorization()
+            default:
+                break
+            }
+        }
     }
     
     func loadInitialPlaces(){
         SwiftSpinner.show("Загрузка...")
         self.placesTableView.backgroundView = nil
         self.placesModelLogic.loadInitialPlaces() { (error: ErrorCode?) in
-            if error == ErrorCode.cityNotDetected {
-                // show message that user's city is not detected
-                self.placesTableView.backgroundView = self.noCityView
-            }else {
+            if error == nil {
                 self.enableTabBar()
                 self.placesTableView.addSubview(self.placesRefreshControl)
                 self.placesTableView.reloadData()
                 self.loadedInitialPlaces = true
                 self.calculateDistancesAndSort()
+            }else {
+                
+                if error == ErrorCode.cityNotDetected {
+                    // show message that user's city is not detected
+                    self.placesTableView.backgroundView = self.noCityView
+                }
             }
             SwiftSpinner.hide()
         }
@@ -101,16 +112,19 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
     // pull-down to refresh places table view
     func refreshPlacesTableView() {
         self.placesModelLogic.loadInitialPlaces { (error: ErrorCode?) in
-            if error == ErrorCode.cityNotDetected {
-                self.placesRefreshControl.endRefreshing()
-                self.placesTableView.backgroundView = self.noCityView
-            }else {
+            if error == nil {
                 self.placesTableView.reloadData()
                 self.placesRefreshControl.endRefreshing()
                 if self.currentLocation == nil {
                     self.LocationMgr.startUpdatingLocation()
                 }else {
                     self.calculateDistancesAndSort()
+                }
+            }else {
+                if error == ErrorCode.cityNotDetected {
+                    self.placesRefreshControl.endRefreshing()
+                    self.placesTableView.backgroundView = self.noCityView
+
                 }
             }
             
@@ -176,7 +190,22 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
     
     }
     
-
+    func locationDidFailWithError(error: NSError) {
+        SwiftSpinner.hide()
+        self.placesTableView.backgroundView = self.noLocationServicesView
+        self.disableTabBar()
+    }
+    
+    func showLocationServicesNotEnabledAlert(){
+        let alert = UIAlertController(title: "Службы геопозиции недоступны", message: "Зайдите в Настройки->Конфиденциальность и включите служюы геолокации", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertAction = UIAlertAction(title: "ОК", style: UIAlertActionStyle.Default) { (action: UIAlertAction) in
+            print("ok")
+            alert.dismissViewControllerAnimated(true, completion: nil)
+        }
+        alert.addAction(alertAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     // MARK: - UI
     
     var showedSpinnerOnce = false
@@ -230,6 +259,8 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
         noCityView.placesTableViewDelegate = self
         
         notAvailableCityView = NotAvailableCityView()
+        noLocationServicesView = NoLocationServicesView()
+        noLocationServicesView.placesTableViewDelegate = self
         
         // table view
         placesTableView.separatorColor = UIColor.primaryRedColor()

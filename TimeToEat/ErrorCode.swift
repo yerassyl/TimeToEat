@@ -11,4 +11,6 @@ import Foundation
 enum ErrorCode: Int {
     case cityNotDetected
     case locationServicesNotEnabled
+    case noInternetConnection
+    case couldNotLoadPlaces
 }
