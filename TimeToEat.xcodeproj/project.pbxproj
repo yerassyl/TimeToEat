@@ -261,7 +261,7 @@
 				TargetAttributes = {
 					CE5F397E1D2E5AD1004E1A50 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = TUMQ73UZTG;
+						DevelopmentTeam = AB65P3C5XF;
 					};
 				};
 			};
@@ -471,7 +471,7 @@
 				INFOPLIST_FILE = TimeToEat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yerchik.com.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeToEat/TimeToEat-Bridging-Header.h";
@@ -491,7 +491,7 @@
 				INFOPLIST_FILE = TimeToEat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yerchik.com.TimeToEat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TimeToEat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeToEat/TimeToEat-Bridging-Header.h";

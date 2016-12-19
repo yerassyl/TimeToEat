@@ -49,7 +49,6 @@ class Location: NSObject, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         self.delegate.locationDidFailWithError(error)
-        print("location did fail with errro")
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {

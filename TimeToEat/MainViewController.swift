@@ -199,7 +199,6 @@ class MainViewController: UIViewController, //UITableViewDataSource, UITableView
     func showLocationServicesNotEnabledAlert(){
         let alert = UIAlertController(title: "Службы геопозиции недоступны", message: "Зайдите в Настройки->Конфиденциальность и включите служюы геолокации", preferredStyle: UIAlertControllerStyle.Alert)
         let alertAction = UIAlertAction(title: "ОК", style: UIAlertActionStyle.Default) { (action: UIAlertAction) in
-            print("ok")
             alert.dismissViewControllerAnimated(true, completion: nil)
         }
         alert.addAction(alertAction)
